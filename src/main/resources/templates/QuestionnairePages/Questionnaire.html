@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url("/Style/NavigationPanel.css");
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px 15% 70px;
+        }
+
+        #questionnaire-name {
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #questionnaire-name-text {
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        #results-table {
+            margin-top: 20px;
+            width: 100%;
+
+        }
+
+        .navigation-btn {
+            margin-right: 20px;
+        }
+
+        #main-container {
+            min-width: 500px;
+            background-color: #E7ECFF;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        table {
+            border-collapse: collapse;
+            word-break: break-word;
+        }
+
+        td,th {
+            padding: 3px;
+            text-align: center;
+        }
+
+        .col {
+            width: 5%; /* Ширина ячейки */
+        }
+
+        tr.row:hover {background-color: #E7ECFF;}
+
+        #button {
+            margin-top: 20px;
+            border: 1px solid #939EA4;
+            background-color: #CDD1D4;
+            cursor: pointer;
+            border-radius: 10px;
+            color: black;
+            padding: 10px;
+        }
+
+    </style>
+
+    <script>
+        function selectText(){
+            const oTextBox = document.getElementById('someTextField');
+            oTextBox.focus();
+            oTextBox.select();
+        }
+    </script>
+</head>
+<body>
+    <div id="main-container">
+        <div id="questionnaire-name">
+            <span id="questionnaire-name-text" th:text="${questionnaire.getName()}">Questionnaire name</span>
+        </div>
+
+        <button th:attr = "hx-get=|/generateLinkModal/${question.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend" id="button">Сгенерировать ссылку для отправки</button>
+
+        <div id="results-table">
+            <table border="1" style="background-color: white">
+                <caption style="padding-bottom: 5px; font-size: 26px"><b>Прохождения опроса</b></caption>
+                <tr>
+                    <th>Клиент</th>
+                    <th>Дата прохождения</th>
+                    <th>Набранные балы</th>
+                    <th>Результат</th>
+                    <th>Просмотр</th>
+                </tr>
+                <tbody th:each="result : ${results}" >
+                    <tr class="row">
+                        <td class="col" th:text="${result.getClient()}">Иванов Иван Иванович</td>
+                        <td class="col" th:text="${result.getDate()}">01-01-2001,11:11</td>
+                        <td class="col" th:text="${result.getNumericResult()}">42</td>
+                        <td class="col" th:text="${result.getResult()}"> Дa </td>
+                        <td class="col"> <a th:href="@{/questionnaire/results/{clientId}/{questionnaireId}(clientId=${result.getClientId()}, questionnaireId=${result.getQuestionnaireId()})}">посмотреть</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="navPanel">
+        <form th:method="GET" th:action="@{/questionnaire/{id}/edit(id=${questionnaire.getId()})}">
+            <button type="submit" class="navigation-btn">Изменить</button>
+        </form>
+        <form th:method="DELETE" th:action="@{/questionnaire/{id}(id=${questionnaire.getId()})}">
+            <button type="submit" class="navigation-btn">Удалить</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 15%;
+}
+
+.header{
+    margin: 20px;
+    display: grid;
+    padding: 20px;
+    background-color: #E7ECFF;
+    border-radius: 7px;
+    font-size: 30px;
+}
+
+#questionnaires {
+    margin: 20px;
+    display: grid;
+    padding: 5px 20px 0;
+    background-color: #E7ECFF;
+    border-radius: 7px;
+    font-size: 30px;
+}
+
+.field {
+    border: none;
+    display: block;
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+}
+
+p {
+    border-bottom: 2px solid black; /* Параметры линии под текстом */
+    font-weight: normal;
+    margin-top: -15px;
+    padding-bottom: 5px; /* Расстояние от текста до линии */
+}
+
+#searchBar{
+    border: none;
+    width: 75%;
+    float: left;
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+#sortBtn {
+    border: none;
+    float: right;
+    width: 20%;
+    max-width: 100px;
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.questionnaire {
+    margin-top: 5px;
+}

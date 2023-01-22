@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaires</title>
+    <style>
+        @import url("/Style/QuestionnaireListStyle.css");
+        @import url("/Style/NavigationPanel.css");
+    </style>
+    <script src="https://unpkg.com/htmx.org@1.8.4" integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div style="margin-bottom: 70px">
+        <div class="header">
+            <p>Опросы</p>
+            <div style="display: inline-block;">
+                <input type="search" name="search"
+                       placeholder="Begin Typing To Search Questionnaires..."
+                       hx-post="/searchQuestionnaires"
+                       hx-trigger="keyup changed delay:500ms, search"
+                       hx-target="#questionnaires"
+                       id="searchBar">
+                <select name="sort-type"
+                        hx-trigger="change, load"
+                        hx-get="/sortQuestionnaires"
+                        hx-target="#questionnaires"
+                        id="sortBtn">
+                    <option value="up">От А до Я</option>
+                    <option value="down">От Я до А</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="questionnaires" th:fragment="questionnaires" th:each="questionnaire : ${questionnaires}">
+            <div class="questionnaire">
+                <a th:href="@{/questionnaire/{id}(id=${questionnaire.getId()})}" th:text="${questionnaire.getQuestionnaireName()}" class="field">questionnaire</a>
+            </div>
+        </div>
+    </div>
+
+    <form th:action="@{/newQuestionnaire}" th:method="GET" class="navPanel">
+        <button type="submit" class="navigation-btn" >Новый Опрос</button>
+    </form>
+</body>
+
+
+</html>

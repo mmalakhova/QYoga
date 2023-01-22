@@ -1,0 +1,25 @@
+.navPanel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    height: 65px;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-right: 5%;
+    text-align: right;
+    min-width: 400px;
+}
+
+.navigation-btn {
+    border: none;
+    border-radius: 10px;
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    background-color: #CDD1D4;
+    float: right;
+    cursor: pointer;
+    margin-right: 20px;
+}

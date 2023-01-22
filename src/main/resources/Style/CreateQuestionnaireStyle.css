@@ -1,0 +1,115 @@
+.image-upload>input {
+    display: none;
+}
+
+.question {
+    display: grid;
+    padding: 20px;
+    background-color: #E7ECFF;
+    border-radius: 7px;
+    margin-top: 30px;
+    min-width: 350px;
+}
+
+.question-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.question-text {
+    border-radius: 5px;
+    border: 1px solid #979797;
+    width: 100%;
+}
+
+.sortBtn{
+    width:  120px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.answer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5%
+
+}
+
+.answerText {
+    border: none;
+    border-bottom: 1px dotted #3a3a3a;
+    border-radius: 2px;
+    background-color: white;
+    width: 100%;
+}
+
+.questionImage {
+    margin-top: 20px;
+    width: 300px;
+}
+
+.cross {
+    position: absolute;
+    width: 20px;
+    margin-top: 10px;
+    margin-left: -10px;
+    cursor: pointer;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 15%;
+    font-size: 18px
+}
+
+.input_file {
+    opacity: 0;
+    position: absolute;
+}
+
+.deleteAnswer {
+    margin-left: 10px;
+    cursor: pointer;
+    width: 20px;
+}
+
+.addFileImg {
+    margin-left: 10px;
+    width: 20px;
+}
+
+.addNewQuestion {
+    position: fixed;
+    bottom: 100px;
+    left: 5%;
+}
+
+input[type=file] {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin-left: -20px
+}
+
+.rangeBorder {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    height: 20px;
+}
+
+#questionnaire {
+    margin-bottom: 70px;
+}
+
+.delete-question {
+    margin-left: 10px;
+    float: right;
+    cursor: pointer;
+    width: 25px;
+}
