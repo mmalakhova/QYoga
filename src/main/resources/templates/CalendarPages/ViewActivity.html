@@ -127,47 +127,42 @@ ${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}
     <div class="modal-underlay" _="on click trigger closeModal"></div>
     <div id="main-container">
         <div style="display: flex; height: 30px; font-size: 18px; font-family: Arial, Helvetica, sans-serif; line-height: 22px">
-            <div class="title"><b>Новое событие</b></div>
+            <div class="title" th:text="${action.getTitle()}" >Название события</div>
             <div style=";margin-left: auto;">
                 <img class="close-button" src="/static/deleteImg.png" _="on click trigger closeModal">
             </div>
         </div>
-        <form>
+        <div>
             <div class="content">
-                <div class="name-field" style="margin-top: 10px; display: flex">
-                    <span class="label">Название</span>
-                    <span class="field" style="margin-left: 80px; width: 100%">
-                        <span class="text-input">
-                            <input autocomplete="off" class="text-input-field" th:value="${action.getTitle()}" style="width: 95%; padding: 4px">
-                        </span>
-                    </span>
-                </div>
-
-                <div class="date-field" style="margin-top: 10px; display: flex">
-                    <span class="label">Время и дата</span>
+                <div class="date-field" style="margin-top: 10px;">
                     <div style="display: flex; align-items: center">
-                        <div style="margin-left: 55px">
-                            <input type="time" id="start" style="padding: 5px" th:value="action.getStartTime()}">
-                            <span style="padding: 5px" >一</span>
-                            <input type="time" id="end" style="padding: 5px" th:value="${action.getEndTime()}">
-                        </div>
-                        <input style="height: 24px; margin-left: 40px" type="date" id="datePicked" th:value="${action.getDate()}">
-                        <script>
-                            document.getElementById('datePicked').valueAsDate = new Date();
-                        </script>
+                        <span class="label">Время и дата</span>
+                        <span style="margin-top: -7px">
+                            <span style="margin-left: 55px"  id="datePicked" th:text="|${action.getDate()};|">01.01.2048;</span>
+                            <span id="start" th:text="action.getStartTime()}">19:00</span>
+                            <span>一</span>
+                            <span id="end" th:text="${action.getEndTime()}">19:40</span>
+                        </span>
+
                     </div>
-                    <span style="padding: 5px; margin-left: 28px">
-                        <input type="checkbox" id="repeated" value="true">
+                    <span>
+                        <input type="checkbox" id="repeated" th:checked="${action.isChosen()} ? 'checked'" disabled="">
                         <label for="repeated"> Повторять</label>
                     </span>
                 </div>
             </div>
 
-            <div class="footer" style="margin-top: 10px">
-                <button type="submit" _="on click trigger closeModal" style="width: 80px; height: 33px; text-align: center; float: right" class="button">Сохранить</button>
+            <div class="footer" style="margin-top: 10px; float: right">
+                <img class="close-button" src="/static/trashIcon.png" _="on click trigger closeModal"
+                     hx-trigger="click"
+                     th:atr= "hx-delete=@{/action/{actionId}(actionId=${action.getId()})">
+                <img style="margin-left: 10px" class="close-button" src="/static/pen.png" _="on click trigger closeModal"
+                     hx-trigger="click"
+                     th:atr= "hx-get=@{/action/{actionId}/edit(actionId=${action.getId()})"
+                     hx-target="#window">
             </div>
 
-        </form>
+        </div>
 
 
 

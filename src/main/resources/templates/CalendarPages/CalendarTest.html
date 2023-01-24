@@ -124,12 +124,12 @@
         <div class="week-grid-times-hours" ></div>
         <div class="week-grid-rows"></div>
         <div class="week-grid-columns">
-            <div class=week-grid-columns-column th:each="action : ${mondayAction.getAction()}">
+            <div class=week-grid-columns-column th:each="action : ${mondayAction.getAction()}" hx-get="/actions/new"  hx-trigger="click" hx-target="#window">
                     <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
                          th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
                                 top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
                                 width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
-                         th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                         th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="#window">
                         <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
                             <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
                             <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
@@ -145,16 +145,16 @@
                                 width: 13%; margin-left: 5px; padding-left: 5px;
                                 position: absolute">
                         <div class="content" style="height: 20px; overflow: auto; scrollbar-width: none">
-                            <span class="time-start" style="font-size: 100%;" th:text="${action.getStartTime()}">19:00</span>
                             <div class="event-name" th:text="${action.getTitle()}" style="font-size: 100%; width: 90%; overflow: hidden; text-overflow: ellipsis;">
                                 textaaaaaaaaaaaaaaaaaaaaaaaaa
                             </div>
+                            <span class="time-start" style="font-size: 100%;" th:text="${action.getStartTime()}">19:00</span>
                             <span></span>
                         </div>
                     </div>
             </div>
             <div class=week-grid-columns-column th:each="action : ${tuesdayAction.getAction()}">
-                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}|"
                      th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
                                 top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
                                 width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
@@ -246,6 +246,9 @@
 
         </div>
     </div>
+</div>
+<div id="window">
+
 </div>
 
 <!--<div class="action" title="19:00 - 19:30йцу"
