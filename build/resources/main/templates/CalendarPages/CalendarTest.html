@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="/Style/CalendarStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+    <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="/Scripts/GenerateCalendarScript.js" defer></script>
+    <script type="text/javascript" src="/Scripts/GenerateWeekGridScript.js" defer></script>
+    <script type="text/javascript" src="/Scripts/GenerateTimeGridScript.js" defer></script>
+    <script type="text/javascript" src="/Scripts/GenerateRowsAndColumsGridScript.js" defer></script>
+
+
+    <style>
+        #schedule {
+            margin: 20px 20px 20px 250px;
+            border: 1px solid #E9EBEC;
+            display: flex;
+            flex-direction: column;
+            min-width: 450px;
+            min-height: 275px;
+            height: 830px;
+        }
+
+        .week-grid-header {
+            display: flex;
+            background-color: #BAC3E5;
+            border-bottom: 1px solid #BAC3E5;
+            padding-left: 55px;
+            height: 51px;
+            padding-right: 7px;
+        }
+
+        .week-grid-header-day {
+            text-align: center;
+            padding-top: 20px;
+            width: 100%;
+            border-left: 1px solid #BAC3E5;
+        }
+
+        .week-grid-body {
+            display: flex;
+            overflow-y: scroll;
+            flex: 1;
+            position: relative;
+            scrollbar-color: #929ECC #E9EBEC; /* «цвет ползунка» «цвет полосы скроллбара» */
+            scrollbar-width: thin;  /* толщина */
+
+        }
+
+        .week-grid-rows-row {
+            background-color: white;
+            height: 60px;
+            width: 100%;
+            border-bottom: 1px solid #E9EBEC;
+        }
+
+        .week-grid-rows {
+            width: 100%;
+            border-bottom: 1px solid #E9EBEC;
+        }
+
+        .week-grid-times-hours-cell {
+            text-align: center;
+            padding-top: 53px;
+            background-color: #E7ECFF;
+            width: 56px;
+            height: 60px;
+            border-right: 1px solid #E9EBEC;
+            font-size: 11px;
+        }
+
+        .week-grid-columns {
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 55px;
+        }
+
+        .week-grid-columns-column {
+            flex: 1;
+            height: 1440px;
+            box-sizing: border-box;
+            border-left: solid 1px;
+            border-color: #E9EBEC;
+            width: 40px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <p class="current-date"></p>
+        <div class="icons">
+            <span id="prev" class="material-symbols-rounded">chevron_left</span>
+            <span id="next" class="material-symbols-rounded">chevron_right</span>
+        </div>
+    </header>
+    <div class="calendar-body">
+        <ul class="weeks">
+            <li>Пн</li>
+            <li>Вт</li>
+            <li>Ср</li>
+            <li>Чт</li>
+            <li>Пт</li>
+            <li>Сб</li>
+            <li>Вс</li>
+        </ul>
+        <ul class="days"></ul>
+    </div>
+</div>
+
+<div id="schedule">
+    <div class="week-grid-header" style="">
+    </div>
+    <div class="week-grid-body">
+        <div class="week-grid-times-hours" ></div>
+        <div class="week-grid-rows"></div>
+        <div class="week-grid-columns">
+            <div class=week-grid-columns-column th:each="action : ${mondayAction.getAction()}" hx-get="/actions/new"  hx-trigger="click" hx-target="#window">
+                    <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                         th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                         th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="#window">
+                        <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                            <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                            <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                                text
+                            </div>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                         style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: 540px; height: 20px;
+                                width: 13%; margin-left: 5px; padding-left: 5px;
+                                position: absolute">
+                        <div class="content" style="height: 20px; overflow: auto; scrollbar-width: none">
+                            <div class="event-name" th:text="${action.getTitle()}" style="font-size: 100%; width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                                textaaaaaaaaaaaaaaaaaaaaaaaaa
+                            </div>
+                            <span class="time-start" style="font-size: 100%;" th:text="${action.getStartTime()}">19:00</span>
+                            <span></span>
+                        </div>
+                    </div>
+            </div>
+            <div class=week-grid-columns-column th:each="action : ${tuesdayAction.getAction()}">
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}|"
+                     th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                     th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                    <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                        <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                        <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                            text
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class=week-grid-columns-column th:each="action : ${wednesdayAction.getAction()}">
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                     th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                     th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                    <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                        <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                        <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                            text
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class=week-grid-columns-column th:each="action : ${thursdayAction.getAction()}">
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                     th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                     th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                    <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                        <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                        <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                            text
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class=week-grid-columns-column th:each="action : ${fridayAction.getAction()}">
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                     th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                     th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                    <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                        <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                        <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                            text
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class=week-grid-columns-column th:each="action : ${saturdayAction.getAction()}">
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                     th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                     th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                    <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                        <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                        <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                            text
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class=week-grid-columns-column th:each="action : ${sundayAction.getAction()}">
+                <div class="action" title="19:00-19:30 action" th:title="|${action.getStartTime()-${action.getEndTime() ${action.getTitle()|"
+                     th:style="color: rgb(36, 68, 113); background-color: rgba(72, 135, 225, 0.25);
+                                top: ${#dates.hour(action.getStartTime())*60+#dates.minute(action.getStartTime())}px; height: ${action.getMinutesBetweenSE()}px;
+                                width: 13%; margin-left: 5px; padding-left: 5px; position: absolute"
+                     th:attr = "hx-get=|/actions/${action.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend">
+                    <div class="content" th:style="height: ${action.getMinutesBetweenSE()}px; overflow: auto; scrollbar-width: none" >
+                        <span class="time-start" th:text="${action.getStartTime()}">19:00</span>
+                        <div class="event-name" th:text="${action.getTitle()}" style="width: 90%; overflow: hidden; text-overflow: ellipsis;">
+                            text
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="window">
+
+</div>
+
+<!--<div class="action" title="19:00 - 19:30йцу"
+     style="color: rgb(36, 68, 113);
+                            background-color: rgba(72, 135, 225, 0.25);
+                            top: 1065px; height: 25px;
+                            width: calc((((100% - 10px) / 1) * 1) - 1px);
+                            left: calc(0 * ((100% - 10px) / 1) + 1px);">
+    <div class="GridEvent__content&#45;&#45;112Xa" style="height: 23px;">
+        <span class="GridEvent__timeStart&#45;&#45;Xyuyq qa-GridEvent-TimeStart">19:00</span>
+        <div class="GridEvent__name&#45;&#45;1yA2e qa-GridEvent-Name" style="-webkit-line-clamp: 1;">
+            йцу
+        </div>
+        <span class="GridEvent__icons&#45;&#45;3WK_w"></span>
+    </div>
+    <div class="GridEventDnd__dragZone&#45;&#45;273lK">
+        <div class="GridEventDnd__moveByTime&#45;&#45;1CdHp" draggable="true"></div>
+        <div class="GridEventDnd__extendUp&#45;&#45;3OI4S" draggable="true"></div>
+        <div class="GridEventDnd__extendDown&#45;&#45;2de_f" draggable="true"></div>
+    </div>
+</div>-->
+
+
+</body>
+</html>
+
+<!-- Спавним элементы построчно, будет dto с количеством 3 минутных интервалов между концом и началом события (нужно для rowspan)
+     Спавним следующее поле: По умолчанию ссылка на всплывающее окно
+                             Иначе ссылка на карточку клиента-->
+

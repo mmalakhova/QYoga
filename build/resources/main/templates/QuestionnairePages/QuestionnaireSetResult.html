@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url("/Style/CreateQuestionnaireStyle.css");
+        @import url("/Style/NavigationPanel.css");
+
+        #main-container {
+            min-width: 500px;
+            background-color: #E7ECFF;
+            margin-top: 50px;
+            padding: 20px;
+            border-radius: 3px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Ширина таблицы в процентах */
+        }
+
+        td,th {
+            padding: 3px;
+            text-align: center;
+
+        }
+
+        .col {
+            width: 5%; /* Ширина ячейки */
+            min-width: 100px;
+        }
+
+        .field {
+            background-color: #E7ECFF;
+            border: none;
+            width: 100%;
+        }
+
+        tr.row:hover {background-color: black;}
+
+    </style>
+    <script type="text/javascript" th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
+</head>
+<body >
+
+
+<form th:method="POST" th:action="@{/questionnaire/setResults}" th:object="${results}">
+
+    <div id="main-container" th:fragment="results-table">
+        <table border="1">
+            <caption style="padding-bottom: 5px; font-size: 22px"><b>Ключи</b></caption>
+            <tr>
+                <th>Минимальное значение</th>
+                <th>Максимальное значение</th>
+                <th>Результат</th>
+                <th>Удалить</th>
+            </tr>
+            <tbody th:each="result, i : *{results}"  th:each="result : ${results.getResults()}">
+                <tr class="row">
+                    <td class="col">
+                        <input class="field" th:field="*{results[__${i.index}__].getMinScore()}"/>
+                    </td>
+                    <td class="col">
+                        <input class="field" th:field="*{results[__${i.index}__].getMaxScore()}"/>
+                    </td>
+                    <td class="col">
+                        <input class="field" th:field="*{results[__${i.index}__].getResult()}"/>
+                    </td>
+                    <td class="col">
+                        <input class="field" style="cursor: pointer;" type="button" value="Удалить"
+                               hx-trigger="click"
+                               hx-delete="@{/questionnaire/setResults/addResult)"
+                               hx-target="#main-container">
+                    </td>
+                </tr>
+            </tbody>
+            <tr>
+                <td colspan="4" class="col">
+                    <input class="field" style="cursor: pointer;" type="button" value="Нажмите для добавления строки"
+                                                    hx-trigger="click"
+                                                    hx-post="@{/questionnaire/setResults/addResult)"
+                                                    hx-target="#main-container">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="navPanel">
+        <button type="submit" class="navigation-btn" >Сохранить</button>
+    </div>
+
+</form>
+</body>
+</html>

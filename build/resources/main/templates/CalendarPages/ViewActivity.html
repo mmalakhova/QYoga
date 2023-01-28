@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+        .close-button {
+            border-radius: 5px;
+            right: 14px;
+            cursor: pointer;
+            width: 25px;
+        }
+
+        .label {
+            display: flex;
+            height: 30px;
+            padding-top: 5px;
+            font-size: 14px;
+            color: #939EA4;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /***** MODAL DIALOG ****/
+        #modal {
+            /* Underlay covers entire screen. */
+            position: fixed;
+            top:0px;
+            bottom: 0px;
+            left:0px;
+            right:0px;
+            background-color:rgba(0,0,0,0.5);
+            z-index:1000;
+
+            /* Flexbox centers the .modal-content vertically and horizontally */
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+
+            /* Animate when opening */
+            animation-name: fadeIn;
+            animation-duration:150ms;
+            animation-timing-function: ease;
+        }
+
+        #modal > .modal-underlay {
+            /* underlay takes up the entire viewport. This is only
+            required if you want to click to dismiss the popup */
+            position: absolute;
+            z-index: -1;
+            top:0px;
+            bottom:0px;
+            left: 0px;
+            right: 0px;
+        }
+
+        #modal > #main-container {
+            /* Position visible dialog near the top of the window */
+            margin-top:10vh;
+
+            /* Sizing for visible dialog */
+            width:80%;
+            background-color: #E7ECFF;
+            max-width:600px;
+
+            /* Display properties for visible dialog*/
+            border:none;
+            border-radius:10px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+            padding:20px;
+
+            /* Animate when opening */
+            animation-name:zoomIn;
+            animation-duration:150ms;
+            animation-timing-function: ease;
+        }
+        #modal.closing {
+            /* Animate when closing */
+            animation-name: fadeOut;
+            animation-duration:150ms;
+            animation-timing-function: ease;
+        }
+
+        #modal.closing > #main-container {
+            /* Aniate when closing */
+            animation-name: zoomOut;
+            animation-duration:150ms;
+            animation-timing-function: ease;
+        }
+
+        @keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+        }
+
+        @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+        }
+
+        @keyframes zoomIn {
+            0% {transform: scale(0.9);}
+            100% {transform: scale(1);}
+        }
+
+        @keyframes zoomOut {
+            0% {transform: scale(1);}
+            100% {transform: scale(0.9);}
+        }
+
+    </style>
+
+    <script>
+        function selectText(){
+            const oTextBox = document.getElementById('someTextField');
+            oTextBox.focus();
+            oTextBox.select();
+        }
+    </script>
+
+    <script src="https://unpkg.com/hyperscript.org@0.9.7"></script>
+</head>
+
+${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}
+
+<body>
+<div id="modal" _="on closeModal add .closing then wait for animationend then remove me" th:fragment="generateLincModal">
+    <div class="modal-underlay" _="on click trigger closeModal"></div>
+    <div id="main-container">
+        <div style="display: flex; height: 30px; font-size: 18px; font-family: Arial, Helvetica, sans-serif; line-height: 22px">
+            <div class="title" th:text="${action.getTitle()}" >Название события</div>
+            <div style=";margin-left: auto;">
+                <img class="close-button" src="/Img/deleteImg.png" _="on click trigger closeModal">
+            </div>
+        </div>
+        <div>
+            <div class="content">
+                <div class="date-field" style="margin-top: 10px;">
+                    <div style="display: flex; align-items: center">
+                        <span class="label">Время и дата</span>
+                        <span style="margin-top: -7px">
+                            <span style="margin-left: 55px"  id="datePicked" th:text="|${action.getDate()};|">01.01.2048;</span>
+                            <span id="start" th:text="action.getStartTime()}">19:00</span>
+                            <span>一</span>
+                            <span id="end" th:text="${action.getEndTime()}">19:40</span>
+                        </span>
+
+                    </div>
+                    <span>
+                        <input type="checkbox" id="repeated" th:checked="${action.isChosen()} ? 'checked'" disabled="">
+                        <label for="repeated"> Повторять</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="footer" style="margin-top: 10px; float: right">
+                <img class="close-button" src="/Img/trashIcon.png" _="on click trigger closeModal"
+                     hx-trigger="click"
+                     th:atr= "hx-delete=@{/action/{actionId}(actionId=${action.getId()})">
+                <img style="margin-left: 10px" class="close-button" src="/Img/pen.png" _="on click trigger closeModal"
+                     hx-trigger="click"
+                     th:atr= "hx-get=@{/action/{actionId}/edit(actionId=${action.getId()})"
+                     hx-target="#window">
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+</body>
+</html>
