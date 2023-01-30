@@ -3,10 +3,10 @@ package nsu.fit.qyoga.core.questionnaires.model.entry
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("decoding")
-data class Decoding(
-    val textResult: String,
-    val lowerBound: Int,
-    val upperBound: Int,
-    val questionnaire: Questionnaire,
-    val id: Long = 0
+class Decoding(
+    var textResult: String,
+    var lowerBound: Int,
+    var upperBound: Int,
+    var questionnaire: Questionnaire,
+    var id: Long = 0
 )

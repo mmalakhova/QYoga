@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 class AdminUsersController {
 
     @PostMapping
-    fun createUser() {
-
+    fun createUser(){
     }
 
 }

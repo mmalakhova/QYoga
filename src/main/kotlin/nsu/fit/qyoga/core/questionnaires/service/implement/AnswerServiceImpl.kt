@@ -5,7 +5,9 @@ import nsu.fit.qyoga.core.questionnaires.model.entry.Answer
 import nsu.fit.qyoga.core.questionnaires.model.repository.AnswerRepo
 import nsu.fit.qyoga.core.questionnaires.service.interfaces.AnswerService
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
 
+@Service
 class AnswerServiceImpl(private val answerRepo : AnswerRepo ): AnswerService {
 
     override fun getAnswer(id: Long): Answer {
@@ -26,7 +28,8 @@ class AnswerServiceImpl(private val answerRepo : AnswerRepo ): AnswerService {
     }
 
     override fun getQuestionAnswers(id: Long): List<Answer> {
-        return answerRepo.findAnswersByQuestionId(id)
+        TODO("Not yet implemented")
+        /*return answerRepo.findAnswersByQuestionId(id)*/
     }
 
     override fun updateAnswer(answer: Answer) {

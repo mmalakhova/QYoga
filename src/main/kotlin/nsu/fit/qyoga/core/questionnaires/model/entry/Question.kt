@@ -5,10 +5,11 @@ import org.springframework.data.relational.core.mapping.Table
 
 
 @Table("questions")
-data class Question(
-    val type: QuestionType,
-    val text: String,
-    val optionsPhotoPath: String,
-    val questionnaire: Questionnaire,
-    val id: Long = 0
+class Question(
+    var type: QuestionType = QuestionType.SINGLE,
+    var text: String = "text",
+    var optionsPhotoPath: String? = null,
+    /*var questionnaire: Questionnaire,*/
+    var answers: List<Answer>,
+    var id: Long = 0
 )

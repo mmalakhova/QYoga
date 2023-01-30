@@ -31,6 +31,8 @@ class WebSecurityConfig(
                 authz
                     .antMatchers(HttpMethod.POST, "/users").hasAuthority(Role.ROLE_ADMIN.toString())
                     .antMatchers("/users/login").permitAll()
+                    .antMatchers(HttpMethod.GET, "/questionnaires/**", "/test", "/Style/**", "/Scripts/**", "/Img/**").permitAll()
+                    .antMatchers(HttpMethod.POST, "/questionnaires/**").permitAll()
                     .anyRequest().authenticated()
             }
         // @formatter:on

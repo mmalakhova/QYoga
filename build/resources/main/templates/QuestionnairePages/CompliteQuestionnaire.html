@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <style>
         @import url("/Style/NavigationPanel.css");
 
@@ -165,7 +165,7 @@
                         <div style="width: 100%">
                             <div class="question-header">
                                 <input  type="radio" name="answer" th:name="|answer${question.getId()}|" th:value="${question.getId()}" placeholder="answer" th:id="|answerChoice${question.getId()}|" th:field="*{clientAnswers[__${iterStat.index}__]}">
-                                <label class="answer-text" th:text="&{answer.getText()}" th:for="|answerChoice${question.getId()}|"> Ответ</label>
+                                <label class="answer-text" th:text="*{answer.getText()}" th:for="|answerChoice${question.getId()}|"> Ответ</label>
                             </div>
 
                             <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->
@@ -179,7 +179,7 @@
                         <div style="width: 100%">
                             <div class="question-header">
                                 <input  type="checkbox" name="answer" th:name="|answer${question.getId()}|" placeholder="answer" th:id="|answerChoice${question.getId()}|">
-                                <label class="answer-text" th:text="&{answer.getText()}" th:for="|answerChoice${question.getId()}|"> Ответ</label>
+                                <label class="answer-text" th:text="*{answer.getText()}" th:for="|answerChoice${question.getId()}|"> Ответ</label>
                             </div>
 
                             <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->

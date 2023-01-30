@@ -3,6 +3,7 @@ package nsu.fit.qyoga.core.questionnaires.service.interfaces
 
 import nsu.fit.qyoga.core.questionnaires.model.entry.Questionnaire
 
+
 interface QuestionnaireService {
     /**
      * Получение опросника по его id

@@ -3,7 +3,9 @@ package nsu.fit.qyoga.core.questionnaires.service.implement
 import nsu.fit.qyoga.core.questionnaires.model.entry.QuestionnairesCompleting
 import nsu.fit.qyoga.core.questionnaires.model.repository.QuestionnairesCompletingRepo
 import nsu.fit.qyoga.core.questionnaires.service.interfaces.QuestionnairesCompletingService
+import org.springframework.stereotype.Service
 
+@Service
 class QuestionnairesCompletingServiceImpl(val questionnairesCompletingRepo: QuestionnairesCompletingRepo):
     QuestionnairesCompletingService {
 

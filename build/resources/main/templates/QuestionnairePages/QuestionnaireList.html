@@ -5,12 +5,12 @@
     <title>Questionnaires</title>
     <link media="all" rel="stylesheet" th:href="@{/Style/QuestionnaireListStyle.css}" type="text/css"/>
     <link media="all" rel="stylesheet" th:href="@{/Style/NavigationPanel.css}" type="text/css"/>
-
-<!--    <style>
-        @import url("/static/Style/QuestionnaireListStyle.css");
-        @import url("/static/Style/NavigationPanel.css");
-    </style>-->
     <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
+
+    <!--    <style>
+            @import url("/static/Style/QuestionnaireListStyle.css");
+            @import url("/static/Style/NavigationPanel.css");
+        </style>-->
 </head>
 <body>
 
@@ -18,16 +18,16 @@
         <div class="header">
             <p>Опросы</p>
             <div style="display: inline-block;">
-                <input type="search" name="search"
+                <input type="search" name="search-text"
                        placeholder="Begin Typing To Search Questionnaires..."
-                       hx-post="/questionnaires/search"
                        hx-trigger="keyup changed delay:500ms, search"
-                       hx-target="#questionnaires"
+                       hx-get="/questionnaires/search"
+                       hx-target="#questionnaire-list"
                        id="searchBar">
                 <select name="sort-type"
-                        hx-trigger="change, load"
+                        hx-trigger="change"
                         hx-get="/questionnaires/sort"
-                        hx-target="#questionnaires"
+                        hx-target = "#questionnaire-list"
                         id="sortBtn">
                     <option value="up">От А до Я</option>
                     <option value="down">От Я до А</option>
@@ -35,14 +35,21 @@
             </div>
         </div>
 
-        <div id="questionnaires" th:fragment="questionnaires" th:each="questionnaire : ${questionnaires}">
-            <div class="questionnaire">
-                <a th:href="@{/questionnaire/{id}(id=${questionnaire.getId()})}" th:text="${questionnaire.getQuestionnaireName()}" class="field">questionnaire</a>
+        <div id="questionnaire-list">
+            <div th:fragment="questionnaires" th:each="questionnaire : ${questionnaires}">
+                <div class="questionnaire">
+                    <a th:href="@{/questionnaire/{id}(id=${questionnaire.id()})}" th:text="${questionnaire.name()}" class="field">questionnaire</a>
+                </div>
+
+                <div class="questionnaire">
+                    <a class="field">questionnaire</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <form th:action="@{/newQuestionnaire}" th:method="GET" class="navPanel">
+
+    <form th:action="@{/questionnaires/new}" th:method="GET" class="navPanel">
         <button type="submit" class="navigation-btn" >Новый Опрос</button>
     </form>
 </body>

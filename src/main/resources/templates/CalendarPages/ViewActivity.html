@@ -129,7 +129,7 @@ ${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}
         <div style="display: flex; height: 30px; font-size: 18px; font-family: Arial, Helvetica, sans-serif; line-height: 22px">
             <div class="title" th:text="${action.getTitle()}" >Название события</div>
             <div style=";margin-left: auto;">
-                <img class="close-button" src="/static/deleteImg.png" _="on click trigger closeModal">
+                <img class="close-button" src="/Img/deleteImg.png" _="on click trigger closeModal">
             </div>
         </div>
         <div>
@@ -153,10 +153,10 @@ ${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}
             </div>
 
             <div class="footer" style="margin-top: 10px; float: right">
-                <img class="close-button" src="/static/trashIcon.png" _="on click trigger closeModal"
+                <img class="close-button" src="/Img/trashIcon.png" _="on click trigger closeModal"
                      hx-trigger="click"
                      th:atr= "hx-delete=@{/action/{actionId}(actionId=${action.getId()})">
-                <img style="margin-left: 10px" class="close-button" src="/static/pen.png" _="on click trigger closeModal"
+                <img style="margin-left: 10px" class="close-button" src="/Img/pen.png" _="on click trigger closeModal"
                      hx-trigger="click"
                      th:atr= "hx-get=@{/action/{actionId}/edit(actionId=${action.getId()})"
                      hx-target="#window">

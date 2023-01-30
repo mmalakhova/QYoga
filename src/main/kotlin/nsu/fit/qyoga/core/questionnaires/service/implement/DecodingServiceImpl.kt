@@ -5,7 +5,9 @@ import nsu.fit.qyoga.core.questionnaires.model.entry.Decoding
 import nsu.fit.qyoga.core.questionnaires.model.repository.DecodingRepo
 import nsu.fit.qyoga.core.questionnaires.service.interfaces.DecodingService
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
 
+@Service
 class DecodingServiceImpl(private val decodingRepo: DecodingRepo): DecodingService {
 
     override fun getDecoding(id: Long): Decoding {
@@ -26,7 +28,8 @@ class DecodingServiceImpl(private val decodingRepo: DecodingRepo): DecodingServi
     }
 
     override fun getQuestionnaireDecoding(id: Long): List<Decoding> {
-        return decodingRepo.findAllByQuestionnaireId(id)
+        TODO("Not yet implemented")
+        /*return decodingRepo.findAllByQuestionnaireId(id)*/
     }
 
     override fun updateDecoding(decoding: Decoding) {
@@ -38,6 +41,7 @@ class DecodingServiceImpl(private val decodingRepo: DecodingRepo): DecodingServi
     }
 
     override fun getResultDecoding(id: Long, result: Long): Decoding {
-        return decodingRepo.findDecodingByResult(id = id, result = result) ?: throw DecodingNotFoundException(id)
+        TODO("Not yet implemented")
+        /*return decodingRepo.findDecodingByResult(id = id, result = result) ?: throw DecodingNotFoundException(id)*/
     }
 }

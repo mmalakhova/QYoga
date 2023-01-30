@@ -10,6 +10,7 @@ body {
     background-color: #E7ECFF;
     border-radius: 7px;
     font-size: 30px;
+    min-width: 400px;
 }
 
 #questionnaires {
@@ -55,7 +56,7 @@ p {
     border: none;
     float: right;
     width: 20%;
-    max-width: 100px;
+    max-width: 140px;
     background-color: white;
     margin-bottom: 10px;
     border-radius: 3px;

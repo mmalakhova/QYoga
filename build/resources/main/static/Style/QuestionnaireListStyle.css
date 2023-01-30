@@ -10,6 +10,7 @@ body {
     background-color: #E7ECFF;
     border-radius: 7px;
     font-size: 30px;
+    min-width: 400px;
 }
 
 #questionnaires {
