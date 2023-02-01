@@ -4,7 +4,7 @@ import org.springframework.data.relational.core.mapping.Table
 
 @Table("questionnaires")
 class Questionnaire(
-    var title: String,
-    var questions: List<Question>,
+    var title: String ="",
+    var questions: List<Question> = mutableListOf(),
     var id: Long = 0
 )

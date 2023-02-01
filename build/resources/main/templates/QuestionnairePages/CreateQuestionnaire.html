@@ -6,11 +6,11 @@
         @import url("/Style/CreateQuestionnaireStyle.css");
         @import url("/Style/NavigationPanel.css");
     </style>
-    <script type="text/javascript" th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<form id="questionnaire" th:method="POST" th:action="@{/questionnaire/create}" th:object="${questionnaire}">
+<form id="questionnaire" th:method="POST" th:action="@{/questionnaires/new}" th:object="${questionnaire}">
 
     <div style="background-color: #E7ECFF;
                 border-radius: 5px;
@@ -21,177 +21,228 @@
                 padding-top: 10px;
                 min-width: 400px;">
         <span>Questionnaire name</span>
-        <input type="text"  th:text="${questionnaire.getName()}"
+        <input type="text"  th:value="${questionnaire.title}" th:field="*{title}"
                style="width: 90%;
                margin-top: 10px">
     </div>
 
-    <div id="questions" th:each="question : ${questionnaire.getQuestions()}" th:fragment="questions">
+    <div id="questions" >
 
-        <div th:id="|question${question.getId()}|" class="question" th:fragment="question">
+        <div th:each="question,i : ${questionnaire.questions}" th:fragment="questions">
 
-            <div th:id="|questionHeader${question.getId()}|" class="question-header" th:fragment="questionHeader">
-                <input class="question-text" type="text" name="questionText" th:text="${teacher.getText()}">
+            <div th:id="|question${question.id}|" class="question" th:fragment="question">
 
-                <div>
-                    <img class="addFileImg" src="https://cdn-icons-png.flaticon.com/512/84/84147.png">
-                    <input name="file" type="file" class="input_file" aria-hidden="true"
-                           hx-trigger="change"
-                           hx-get="@{/question/{questionId}/image(questionId=${question.getId()})"
-                           hx-target="'#answers' + ${question.getId()}"
-                           th:attr = "hx-target=|#questionHeader${question.getId()}|">
-                </div>
+                <div th:id="|question${question.id}Header|" th:fragment="questionHeader">
 
-                <select name="sort-type"
-                        hx-trigger="change, load"
-                        hx-get="@{/question/{questionId}/changeType(questionId=${question.getId()})}"
-                        th:attr = "hx-target=|#answers${question.getId()}|"
-                        class="sortBtn">
-                    <option value="" selected disabled hidden th:text="${question.getId()}">Choose here</option>
-                    <option value="one">one from list</option>
-                    <option value="several">several from list</option>
-                </select>
+                    <input type="hidden" th:value="${question.id}" th:field="*{questions[__${i.index}__].id}">
 
-            </div>
-
-            <div>
-                <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
-                <!--<img th:src="${question.getImage()}" width="400">-->
-            </div>
-
-            <div th:id="|answers${question.getId()}|" class="questionBody" th:each="answer : ${question.getAnswer()}" th:fragment="answer">
-                <div th:switch="${question.getType()}">
-
-                    <div th:case="one" class="answer">
-                        <div class="question-header">
-                            <img style="padding-right: 1%; height: 20px; width: 20px" src="/Img/circle.png" alt="answer type">
-                            <label style="width: 90%;">
-                                <input class="answerText" type="text" name="answer" placeholder="answer" th:text="&{answer.getText()}">
-                            </label>
-                            <div>
-                                <img class="addFileImg" src="/Img/addImg.png">
-                                <input name="file" type="file" class="input_file" aria-hidden="true"
-                                       hx-trigger="change"
-                                       hx-get="@{/question/{questionId}/{answerId}/image(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                       th:attr = "hx-target=|#answers${question.getId()}|">
-                            </div>
-                            <img class="deleteAnswer" src="/Img/deleteAnswer.png" alt="delete q btn"
-                                 hx-trigger="click"
-                                 hx-delete="@{/question/{questionId}/{answerId}(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                 hx-target="questions">
-                        </div>
-
-                        <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->
-                        <div>
-                            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
-                            <img class="cross" src="/Img/deleteImg.png" alt="delete image"
-                                 hx-trigger="click"
-                                 hx-delete="@{/question/{questionId}/{answerId}/image(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                 th:attr = "hx-target=|#answers${question.getId()}|">
-                        </div>
-                    </div>
-
-                    <div th:case="several" class="answer" >
-                        <div class="question-header">
-                            <img style="padding-right: 1%;" width="20px" src="/Img/square.png" alt="answer type">
-                            <label style="width: 90%;">
-                                <input class="answerText" type="text" name="answer" placeholder="answer" th:text="&{answer.getText()}">
-                            </label>
-                            <div>
-                                <img class="addFileImg" src="/Img/addImg.png">
-                                <input name="file" type="file" class="input_file" aria-hidden="true"
-                                       hx-trigger="change"
-                                       hx-get="@{/question/{questionId}/{answerId}/image(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                       th:attr = "hx-target=|#answers${question.getId()}|">
-                            </div>
-                            <img class="deleteAnswer" src="/Img/deleteAnswer.png" alt="delete q btn"
-                                 hx-trigger="click"
-                                 hx-delete="@{/question/{questionId}/{answerId}(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                 hx-target="questions">
-
-                        </div>
+                    <div class="question-header">
+                        <input class="question-text" type="text" name="questionText" th:value="${question.text}">
 
                         <div>
-                            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
-                            <img class="cross" src="/Img/deleteImg.png" alt="delete image"
+                            <img class="addFileImg" src="/Img/addImg.png">
+                            <input name="file" type="file" class="input_file" aria-hidden="true"
+                                   hx-trigger="change"
+                                   hx-encoding="multipart/form-data"
+                                   th:attr = "
+                                    hx-post=|@{/questionnaires/questions/{questionId}/image(questionId=${question.id})}|,
+                                    hx-target=|#question${question.id}Img|">
+                        </div>
+
+                        <select name="question-type"
+                                hx-trigger="change"
+                                th:attr = "
+                                    hx-get=|@{/questionnaires/questions/{questionId}/changeType(questionId=${question.id})}|,
+                                    hx-target=|#answers${question.id}|"
+                                class="sortBtn">
+                                <!--th:field="*{questions[__${i.index}__].type}">-->
+                            <option value="" selected disabled hidden th:text="${question.type.text}">Choose here</option>
+                            <option value="one">one</option>
+                            <option value="several">several</option>
+                            <option value="range">range</option>
+                            <option value="text">text</option>
+                        </select>
+
+                    </div>
+
+                    <div th:id="|question${question.id}Img|">
+                        <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
+                        <!--<img th:src="${question.getImage()}" width="400">-->
+                    </div>
+                </div>
+
+                    <div th:id="|question${question.id}Body|">
+                        <div th:id="|answers${question.id}|">
+                            <div th:each="answer,j : ${question.answers}" th:switch="${question.type.text}" th:fragment="answer">
+
+                                <input type="hidden" th:value="${answer.id}" th:field="*{questions[__${i.index}__].answers[__${j.index}__].id}">
+
+                                <!--<div th:switch="${question.type.text}">-->
+
+                                    <div th:case="one" th:id="|answer${answer.id}|" class="answer" >
+
+                                        <div class="question-header">
+                                            <img style="padding-right: 1%; height: 16px; width: 16px" src="/Img/circle.png" alt="answer type">
+                                            <label style="width: 90%;">
+                                                <input class="answerText" type="text" name="answer" placeholder="answer" th:value="${answer.optionsText}"
+                                                       th:field="*{questions[__${i.index}__].answers[__${j.index}__].optionsText}">
+                                            </label>
+                                            <div>
+                                                <img class="addFileImg" src="/Img/addImg.png">
+                                                <input name="file" type="file" class="input_file" aria-hidden="true"
+                                                       hx-trigger="change"
+                                                       hx-encoding="multipart/form-data"
+                                                       th:attr = "
+                                                       hx-post=|@{/questionnaires/answers/{answerId}/image(answerId=${answer.getId()})}|,
+                                                       hx-target=|#answers${question.id}|">
+                                            </div>
+                                            <img class="deleteAnswer" src="/Img/deleteAnswer.png" alt="delete answer"
+                                                 hx-trigger="click"
+                                                 th:attr = "
+                                                 hx-delete=|@{/questionnaires/answers/{answerId}(answerId=${answer.getId()})}|,
+                                                 hx-target=|#answers${question.id}|">
+                                        </div>
+
+                                        <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->
+                                        <div>
+                                            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
+                                            <img class="cross" src="/Img/deleteImg.png" alt="delete image"
+                                                 hx-trigger="click"
+                                                 th:attr = "
+                                                 hx-delete=|@{/questionnaires/answers/{answerId}/image(answerId=${answer.id})}|,
+                                                 hx-target=|#answers${question.id}|">
+                                        </div>
+
+                                    </div>
+
+                                    <div th:case="several" th:id="|answer${answer.id}|" class="answer" >
+
+                                        <div class="question-header">
+                                            <img style="padding-right: 1%; height: 16px; width: 16px" src="/Img/square.png" alt="answer type">
+                                            <label style="width: 90%;">
+                                                <input class="answerText" type="text" name="answer" placeholder="answer" th:value="${answer.optionsText}"
+                                                       th:field="*{questions[__${i.index}__].answers[__${j.index}__].optionsText}">
+                                            </label>
+                                            <div>
+                                                <img class="addFileImg" src="/Img/addImg.png">
+                                                <input name="file" type="file" class="input_file" aria-hidden="true"
+                                                       hx-trigger="change"
+                                                       hx-encoding="multipart/form-data"
+                                                       th:attr = "
+                                                       hx-post=|@{/questionnaires/answers/{answerId}/image(answerId=${answer.getId()})}|,
+                                                       hx-target=|#answers${question.id}|">
+                                            </div>
+                                            <img class="deleteAnswer" src="/Img/deleteAnswer.png" alt="delete q btn"
+                                                 hx-trigger="click"
+                                                 th:attr = "
+                                                 hx-delete=|@{/questionnaires/answers/{answerId}(answerId=${answer.getId()})}|,
+                                                 hx-target=|#answers${question.id}|">
+                                        </div>
+
+                                        <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->
+                                        <div>
+                                            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
+                                            <img class="cross" src="/Img/deleteImg.png" alt="delete image"
+                                                 hx-trigger="click"
+                                                 th:attr = "
+                                                 hx-delete=|@{/question/answers/{answerId}/image(answerId=${answer.id})}|,
+                                                 hx-target=|#answers${question.id}|">
+                                        </div>
+                                    </div>
+
+                                    <div th:case="text" th:id="|answer${answer.id}|" class="answer" style="margin-top: 5%" >
+                                        <label style="width: 90%">
+                                            <input class="answerText" type="text" name="answer" placeholder="answer" disabled="" >
+                                        </label>
+                                    </div>
+
+                                    <div th:case="range" th:id="|answer${answer.id}|" class="answer" >
+
+                                        <div class="rangeBorder">
+                                            <select name="range"
+                                                    hx-trigger="change"
+                                                    th:attr = "
+                                                    hx-post=|@{/questionnaires/answers/{answerId}/LeftBorder(answerId=${answer.id})}|,
+                                                    hx-target=|#leftBorder${answer.id}|"
+                                                    class="sortBtn" style="width: 42px"
+                                                    >
+                                                <option value="" selected disabled hidden th:text="${answer.optionsLowerBound}">lower bound</option>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                            </select>
+                                            <span style="margin-left: 10px">-</span>
+                                            <select name="range"
+                                                    hx-trigger="change"
+                                                    th:attr = "
+                                                    hx-post=|@{/questionnaires/answers/{answerId}/RightBorder(answerId=${answerid})}|,
+                                                    hx-target=|#rightBorder${answer.id}|"
+                                                    class="sortBtn" style="width: 42px"
+                                                    >
+                                                <option value="" selected disabled hidden th:text="${answer.optionsUpperBound}">upper bound</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                        <div style="padding-top: 15px; width: 100%">
+                                            <div style="display:flex; ">
+                                                <div th:id="|leftBorder${answer.id}|">
+                                                    <span th:text="${answer.optionsLowerBound}">0</span>
+                                                </div>
+                                                <div style="width: 50%; padding-left: 15px">
+                                                    <input type="text" class="answerText" th:text="${answer.optionsLowerBoundText}"
+                                                           th:field="*{questions[__${i.index}__].answers[__${j.index}__].optionsLowerBoundText}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div  style="display:flex; ">
+                                                <div th:id="|rightBorder${answer.id}|">
+                                                    <span th:text="${answer.optionsUpperBound}">2</span>
+                                                </div>
+                                                <div style="width: 50%; padding-left: 15px">
+                                                    <input type="text" class="answerText" th:text="${answer.optionsUpperBoundText}"
+                                                           th:field="*{questions[__${i.index}__].answers[__${j.index}__].optionsUpperBoundText}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <!--</div>-->
+                            </div>
+                        </div>
+
+
+                        <div th:if="${question.type.text} == 'one' or ${question.type.text} == 'several' " class="answer">
+                            <label style="width: 90%; margin-left: 26px">
+                                <input class="answerText" type="text" name="answer" placeholder="нажмите, чтобы добавить новый ответ" disabled="" >
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px solid black; margin-top: 7px; padding: 7px">
+                        <div>
+                            <img class="delete-question" src="/Img/trashIcon.png" alt="delete q btn"
                                  hx-trigger="click"
-                                 hx-delete="@{/question/{questionId}/{answerId}/image(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                 th:attr = "hx-target=|#answers${question.getId()}|">
+                                 th:attr = "hx-delete=|@{/questionnaires/question/{questionId}(questionId=${question.getId()})}|"
+                                 hx-target="questions">
+                        </div>
+                        <div th:if="'range' != ${question.getType()} and 'text' != ${question.type}">
+                            <button type="button" class="navigation-btn" style="float: left"
+                                    hx-trigger="click"
+                                    th:attr = "
+                                    hx-get=|@{/questionnaires/question/{questionId}/setScores(questionId=${question.getId()})}|,
+                                    hx-target=|#answers${question.id}|"]
+                            >Задать баллы</button>
                         </div>
                     </div>
 
-                    <div th:case="text" class="answer" style="margin-top: 5%">
-                        <label style="width: 90%">
-                            <input class="answerText" type="text" name="answer" placeholder="answer" disabled="" >
-                        </label>
-                    </div>
-
-                    <div th:case="range" class="answer">
-                        <div class="rangeBorder">
-                            <select name="rangeLeft"
-                                    hx-trigger="change"
-                                    hx-patch="@{/question/{questionId}/{answerId}/changeBorder(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                    th:attr = "hx-target=|leftBorder${answer.getId()}|"
-                                    class="sortBtn" style="width: 42px">
-                                <option selected value="one">0</option>
-                                <option value="several">1</option>
-                            </select>
-                            <span style="margin-left: 10px">-</span>
-                            <select name="rangeRight"
-                                    hx-trigger="change"
-                                    hx-patch="@{/question/{questionId}/{answerId}/changeBorder(questionId=${question.getId()}, answerId=${answer.getId()})"
-                                    th:attr = "hx-target=|rightBorder${answer.getId()}|"
-                                    class="sortBtn" style="width: 42px">
-                                <option value="several">2</option>
-                                <option value="several">3</option>
-                                <option value="several">4</option>
-                                <option selected value="one">5</option>
-                                <option value="several">6</option>
-                                <option value="several">7</option>
-                                <option value="several">8</option>
-                                <option value="several">9</option>
-                                <option value="several">10</option>
-                            </select>
-                        </div>
-                        <div style="padding-top: 15px; width: 100%">
-                            <div style="display:flex; ">
-                                <div th:id="'leftBorder' + ${answer.getId()}">
-                                    <span>1</span>
-                                </div>
-                                <div style="width: 50%; padding-left: 15px">
-                                    <input type="text" class="answerText" th:text="${answer.getLeftBorderText()}">
-                                </div>
-                            </div>
-                            <br>
-                            <div  style="display:flex; ">
-                                <div th:id="'rightBorder' + ${answer.getId()}">
-                                    <span>5</span>
-                                </div>
-                                <div style="width: 50%; padding-left: 15px">
-                                    <input type="text" class="answerText" th:text="${answer.getRightBorderText()}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <div style="border-top: 1px solid black; margin-top: 7px; padding: 7px">
-                <div>
-                    <img class="delete-question" src="https://cdn.icon-icons.com/icons2/1524/PNG/512/trashcan_106521.png" alt="delete q btn"
-                         hx-trigger="click"
-                         hx-delete="@{/question/{questionId}(questionId=${question.getId()})"
-                         hx-target="questions">
-                </div>
-                <div th:if="'range' != ${question.getType()} and 'text' != ${question.getType()}">
-                    <button type="button" class="navigation-btn" style="float: left"
-                            hx-trigger="click"
-                            hx-get="@{/question/{questionId}/set-scores(questionId=${question.getId()})"
-                            th:attr = "hx-target=|#answers${question.getId()}|"
-                    >Задать баллы</button>
-                </div>
-            </div>
-
         </div>
 
     </div>
@@ -205,19 +256,10 @@
 <div class="addNewQuestion">
     <input type="image" width="60px" src="/Img/plus.png" alt="новый вопрос"
            hx-trigger="click"
-           hx-get="@{/question/addNew"
+           th:attr="hx-get=|@{/questionnaires/{questionnaireId}/addQuestion(questionnaireId=${questionnaire.id})}|"
            hx-swap="beforeend"
            hx-target="#questions">
 </div>
 </body>
 </html>
 
-
-<!-- Задание баллов за ответы след. образом
-    перегенерируются все вопросы, заменив удаление и добавление изображения на баллы-->
-<!--th:attr="hx-put=@{/{id}/toggle(id=${item.id})},hx-target=|#list-item-${item.id}|"
-               hx-trigger="click"
-               hx-swap="outerHTML"
-               hx-target везде кривые-->
-<!-- нужно использовать чуть другой проход по списку вопросов ааааааа. это нужно, чтобы нормально работало th:field="*{title}"-->
-hatr для хапросов не корректен

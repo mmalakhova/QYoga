@@ -10,6 +10,6 @@ class Question(
     var text: String = "text",
     var optionsPhotoPath: String? = null,
     /*var questionnaire: Questionnaire,*/
-    var answers: List<Answer>,
+    var answers: List<Answer> = mutableListOf(),
     var id: Long = 0
 )

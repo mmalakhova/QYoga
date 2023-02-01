@@ -8,8 +8,10 @@ class Answer(
     var optionsText: String = "text",
     var optionsNumber: Int? = null,
     var optionsPhotoPath: String? = null,
-    var optionsLowerBound: Int? = null,
-    var optionsUpperBound: Int? = null,
+    var optionsLowerBound: Int = 0,
+    var optionsLowerBoundText: String? = null,
+    var optionsUpperBound: Int = 2,
+    var optionsUpperBoundText: String? = null,
     var points: Int = 0,
     /*var question: Question,*/
     var id: Long = 0

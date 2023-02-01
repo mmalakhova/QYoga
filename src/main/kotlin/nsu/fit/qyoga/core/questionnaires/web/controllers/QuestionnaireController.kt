@@ -39,10 +39,18 @@ class QuestionnaireController(var questionnaireService: QuestionnaireService) {
 
     @GetMapping("/new")
     fun newQuestionnaires(model : Model): String{
-        val questionnaire = Questionnaire("Unnamed questionnaire", listOf(Question(QuestionType.SINGLE, "text", "", listOf(Answer()))))
+
+        val questionnaire = Questionnaire("Unnamed questionnaire", listOf(Question(QuestionType.RANGE, "text", "", listOf(Answer()),0),
+            Question(QuestionType.SINGLE, "text", "", listOf(Answer(id=1), Answer(id=2)),1)))
         //questionnaireService.saveQuestionnaire(questionnaire)
         model.addAttribute("questionnaire", questionnaire)
         return "QuestionnairePages/CreateQuestionnaire"
+    }
+
+    @PostMapping("/new")
+    fun saveNewQuestionnaires(model : Model, @ModelAttribute("questionnaire") questionnaire: Questionnaire): String{
+        println("get questionnaire: ${questionnaire.title}")
+        return ""
     }
 
     @GetMapping("/{questionId}/changeType")
@@ -58,9 +66,22 @@ class QuestionnaireController(var questionnaireService: QuestionnaireService) {
     }
 
     @PostMapping("/{questionnaireId}/image")
-    fun addiMAGEToQuestionnaire(@RequestParam("file") file: MultipartFile, @PathVariable questionnaireId: String): String{
-        println("image! ${file.size}")
+    fun addImageToQuestionnaire(@RequestParam("file") file: MultipartFile, @PathVariable questionnaireId: String): String{
+        println("question image: ${file.size}")
         return ""
     }
+
+    @PostMapping("/answers/{answerId}/image")
+    fun addImageToAnswer(@RequestParam("file") file: MultipartFile, @PathVariable answerId: String, ): String{
+        println("answer image: ${file.size}")
+        return ""
+    }
+
+    @PostMapping("/answers/{answerId}/LeftBorder")
+    fun answerSetLeftBorder(@RequestParam("range") value: Int, @PathVariable answerId: String): String{
+        println("changed left border: $value for answer $answerId")
+        return ""
+    }
+
 
 }
