@@ -7,70 +7,88 @@
     <link rel="stylesheet" href="css/clientPageStyle.css">
 </head>
 <body class="body">
-    <header class="header-top">
-        <div class="container container-header-bottom">
-            <div class="header-bottom-left">
-                <div class="header-top-bar">
-                </div>
-                <nav class="nav">
-                    <a href="#" class="header-top-link">
-                        <img src="Images/Logo.png" alt="QYoga" class="header-top-logo">
-                    </a>
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Главная</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">О нас</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Отзывы</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="header-bottom-right">
-                <a href="#" class="btn header-bottom-right-btn">Иван Иванов</a>
+<!--<header class="header-top">
+    <div class="container container-header-bottom">
+        <div class="header-bottom-left">
+            <nav class="nav">
+                <a href="#" class="header-top-link">
+                    <img src="Images/Logo.png" alt="QYoga" class="header-top-logo">
+                </a>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Отзывы</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-bottom-right">
+            <a href="#" class="btn header-bottom-right-btn">Иван Иванов</a>
+        </div>
+    </div>
+
+</header>-->
+<main class="main">
+    <section class="section-main">
+        <div class="container">
+            <div class="main-box">
+                <form action="" method="get" class="clients-data">
+                    <div class="clients-data">
+                        <input type="text" class="input-name" placeholder="name" name="name" id="name" required>
+                    </div>
+                    <div class="clients-data">
+                        <input type="text"  class="input-surname" placeholder="surname" name="name" id="surname" required>
+                    </div>
+                    <div class="one-line">
+                        <div class="clients-data">
+                            <input type="date"  class="input-date" placeholder="birth-date" name="name" id="birth-date" required>
+                        </div>
+                        <div class="clients-data">
+                            <input type="text" class="input-phone" placeholder="phone-number" name="phone" id="phone-number" required>
+                        </div>
+                        <div class="clients-data">
+                            <input type="email" class="input-email" placeholder="email" name="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="clients-data">
+                        <input type="text" class="input-address" placeholder="address" name="address" id="address" required>
+                    </div>
+                    <div class="clients-data">
+                        <input type="text" class="input-source" placeholder="source of distribution" name="source" id="source" required>
+                    </div>
+                    <div class="clients-data">
+                        <textarea class="input-diagnose" placeholder="diagnose" name="diagnose" id="diagnose"></textarea>
+                    </div>
+                </form>
             </div>
         </div>
-
-    </header>
-    <main class="main">
-        <section class="section-main">
-            <div class="container">
-             <div class="main-box">
-                 <form action="" method="get" class="clients-data">
-                     <div class="clients-data">
-                         <input type="text" class="input-name" placeholder="name" name="name" id="name" required>
-                     </div>
-                     <div class="clients-data">
-                         <input type="text"  class="input-surname" placeholder="surname" name="name" id="surname" required>
-                     </div>
-                     <div class="one-line">
-                         <div class="clients-data">
-                             <input type="data"  class="input-date" placeholder="birth-date" name="name" id="birth-date" required>
-                         </div>
-                         <div class="clients-data">
-                             <input type="text" class="input-phone" placeholder="phone-number" name="phone" id="phone-number" required>
-                         </div>
-                         <div class="clients-data">
-                             <input type="email" class="input-email" placeholder="email" name="email" id="email" required>
-                         </div>
-                     </div>
-                     <div class="clients-data">
-                         <input type="text" class="input-address" placeholder="address" name="address" id="address" required>
-                     </div>
-                     <div class="clients-data">
-                         <input type="text" class="input-source" placeholder="source of distribution" name="source" id="source" required>
-                     </div>
-                 </form>
-             </div>
+    </section>
+    <section class="bottom-buttons">
+        <div class="container container-bottom">
+            <div class="bottom-buttons-right">
+                <ul class="nav-list-b">
+                    <li class="nav-item-b">
+                        <a href="#" class="btn header-bottom-right-btn">Сохранить</a>
+                    </li>
+                    <li class="nav-item-b">
+                        <a href="#" class="btn header-bottom-right-btn">Приемы</a>
+                    </li>
+                    <li class="nav-item-b">
+                        <a href="#" class="btn header-bottom-right-btn">Новый прием</a>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </section>
 
-        </section>
-    </main>
-    <div class="left-side-bar">
+</main>
+<div class="left-side-bar">
 
-    </div>
+</div>
 </body>
 </html>

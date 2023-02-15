@@ -23,6 +23,9 @@ ul {
     line-height: 16px;
 
     color: #595F7B;
+
+    background: rgba(89, 95, 123, 0.25);
+    border-radius: 2px;
 }
 .container{
     /*max-width: 1200px;*/
@@ -57,9 +60,6 @@ ul {
 .header-bottom-left{
 
 }
-.header-top-bar{
-
-}
 .header-top-link{
 
 }
@@ -89,12 +89,10 @@ ul {
 }
 .header-bottom-right{
     margin-right: 30px;
-    background: rgba(89, 95, 123, 0.25);
-    border-radius: 2px;
 }
-.header-bottom-right-btn{
+/*.header-bottom-right-btn{*/
 
-}
+/*}*/
 
 .main{
 
@@ -106,6 +104,7 @@ ul {
     margin-left: 60px;
     margin-right: 60px;
     margin-top: 30px;
+    padding-bottom: 100px;
 
     background: #E7ECFF;
     border-radius: 10px;
@@ -143,6 +142,8 @@ ul {
     border: 1px solid #979797;
 }
 .input-phone{
+    minlength: 11;
+    maxlength: 12;
     width: 100%;
     background: #FFFFFF;
     border: 1px solid #979797;
@@ -157,6 +158,37 @@ ul {
     background: #FFFFFF;
     border: 1px solid #979797;
 }
+.input-diagnose{
+    height: 190px;
+    width: 65%;
+    background: #FFFFFF;
+    border: 1px solid #979797;
+}
 .left-side-bar{
+    /* Here will be a side menu*/
+}
+.container-bottom{
+    background-color: #E5E5E5;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+    min-height: 60px;
+    max-width: 5000px;
+}
+.bottom-buttons-right{
+    max-width: 4000px;
+}
+.nav-list-b{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 50px;
+    margin-left: 61px;
+    max-width: 4000px;
+}
 
+.nav-item-b{
+    margin-right: 40px;
 }
