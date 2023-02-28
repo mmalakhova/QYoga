@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/questionnaires")
 class QuestionnaireController(var questionnaireService: QuestionnaireService) {
 
-    @GetMapping("/")
+    @GetMapping("")
     fun getAllQuestionnaires(): String{
         return "QuestionnairePages/QuestionnaireList"
     }
@@ -39,16 +39,19 @@ class QuestionnaireController(var questionnaireService: QuestionnaireService) {
 
     @GetMapping("/new")
     fun newQuestionnaires(model : Model): String{
-
         val questionnaire = Questionnaire("Unnamed questionnaire", listOf(Question(QuestionType.RANGE, "text", "", listOf(Answer()),0),
             Question(QuestionType.SINGLE, "text", "", listOf(Answer(id=1), Answer(id=2)),1)))
         //questionnaireService.saveQuestionnaire(questionnaire)
         model.addAttribute("questionnaire", questionnaire)
+        model.addAttribute("questionOffset", 0)
         return "QuestionnairePages/CreateQuestionnaire"
     }
 
-    @PostMapping("/new")
-    fun saveNewQuestionnaires(model : Model, @ModelAttribute("questionnaire") questionnaire: Questionnaire): String{
+    @PostMapping("new/{questionnaireId}")
+    fun saveNewQuestionnaires(model : Model,
+                              @ModelAttribute("questionnaire") questionnaire: Questionnaire,
+                              @PathVariable questionnaireId: String
+    ): String{
         println("get questionnaire: ${questionnaire.title}")
         return ""
     }
@@ -81,6 +84,29 @@ class QuestionnaireController(var questionnaireService: QuestionnaireService) {
     fun answerSetLeftBorder(@RequestParam("range") value: Int, @PathVariable answerId: String): String{
         println("changed left border: $value for answer $answerId")
         return ""
+    }
+
+    @GetMapping("/question/{questionNum}/{questionId}/setScores")
+    fun setQuestionScore(@PathVariable questionId: Int, model : Model,
+                         @PathVariable questionNum: Int
+    ): String{
+        val question = Question(QuestionType.SINGLE, "text", "", listOf(Answer(id=1), Answer(id=2)),1)
+        //questionnaireService.saveQuestionnaire(questionnaire)
+        model.addAttribute("questionNum", questionNum)
+        model.addAttribute("question", question)
+        return "QuestionnairePages/QuestionnaireSetScores"
+    }
+
+    @GetMapping("/question/{questionNum}/{questionId}/setAnswers")
+    fun setQuestionAnswers(@PathVariable questionId: Int, model : Model,
+                         @PathVariable questionNum: Int
+    ): String{
+        val questionnaire = Questionnaire("", listOf(
+            Question(QuestionType.SINGLE, "text", "", listOf(Answer(id=1), Answer(id=2)),1)))
+        //questionnaireService.saveQuestionnaire(questionnaire)
+        model.addAttribute("questionnaire", questionnaire)
+        model.addAttribute("questionOffset", questionNum)
+        return "QuestionnairePages/CreateQuestionnaire::question"
     }
 
 

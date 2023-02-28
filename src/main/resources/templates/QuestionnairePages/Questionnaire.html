@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <style>
         @import url("/Style/NavigationPanel.css");
+        @import url("/Style/GenerateLinkStyle.css");
 
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -35,11 +36,12 @@
         }
 
         #main-container {
-            min-width: 500px;
+            min-width: 550px;
+            min-height: 500px;
             background-color: #E7ECFF;
             padding: 15px;
             border-radius: 5px;
-            width: 100%;
+
         }
 
         table {
@@ -70,6 +72,7 @@
 
     </style>
 
+
     <script>
         function selectText(){
             const oTextBox = document.getElementById('someTextField');
@@ -77,32 +80,38 @@
             oTextBox.select();
         }
     </script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.7"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="main-container">
         <div id="questionnaire-name">
-            <span id="questionnaire-name-text" th:text="${questionnaire.getName()}">Questionnaire name</span>
+            <span id="questionnaire-name-text" th:text="${questionnaire.title}">Questionnaire name</span>
         </div>
 
-        <button th:attr = "hx-get=|/generateLinkModal/${question.getId()}|"  hx-trigger="click" hx-target="body" hx-swap="beforeend" id="button">Сгенерировать ссылку для отправки</button>
+        <button id="button"
+                th:attr = "hx-get=|/questionnaires/results/generateLinkModal/${questionnaire.id}|"
+                hx-target="body"
+                hx-swap="beforeend"
+        >Сгенерировать ссылку для отправки</button>
 
         <div id="results-table">
-            <table border="1" style="background-color: white">
+            <table border="1" style="background-color: white; width: 100%">
                 <caption style="padding-bottom: 5px; font-size: 26px"><b>Прохождения опроса</b></caption>
                 <tr>
                     <th>Клиент</th>
                     <th>Дата прохождения</th>
-                    <th>Набранные балы</th>
+                    <th>Набранные баллы</th>
                     <th>Результат</th>
                     <th>Просмотр</th>
                 </tr>
                 <tbody th:each="result : ${results}" >
                     <tr class="row">
-                        <td class="col" th:text="${result.getClient()}">Иванов Иван Иванович</td>
-                        <td class="col" th:text="${result.getDate()}">01-01-2001,11:11</td>
-                        <td class="col" th:text="${result.getNumericResult()}">42</td>
-                        <td class="col" th:text="${result.getResult()}"> Дa </td>
-                        <td class="col"> <a th:href="@{/questionnaire/results/{clientId}/{questionnaireId}(clientId=${result.getClientId()}, questionnaireId=${result.getQuestionnaireId()})}">посмотреть</a></td>
+                        <td class="col"><a th:href="@{/customerСardы/{clientId}(clientId=${result.getClientId()})}" th:text="${result.client}">посмотреть</a></td>
+                        <td class="col" th:text="${#dates.format(result.date, 'dd-MM-yyyy,HH:mm')}">01-01-2001,11:11</td>
+                        <td class="col" th:text="${result.numericResult}">42</td>
+                        <td class="col" th:text="${result.textResult}"> Дa </td>
+                        <td class="col"> <a th:href="@{/questionnaire/results/{clientId}/{questionnaireId}(clientId=${result.getClientId()}, questionnaireId=${questionnaire.id})}">просмотр</a></td>
                     </tr>
                 </tbody>
             </table>

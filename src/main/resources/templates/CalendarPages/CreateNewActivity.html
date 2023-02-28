@@ -120,8 +120,6 @@
     <script src="https://unpkg.com/hyperscript.org@0.9.7"></script>
 </head>
 
-${action.getStartTime()}-${action.getEndTime()} ${action.getTitle()}
-
 <body>
 <div id="modal" _="on closeModal add .closing then wait for animationend then remove me" th:fragment="generateLincModal">
     <div class="modal-underlay" _="on click trigger closeModal"></div>

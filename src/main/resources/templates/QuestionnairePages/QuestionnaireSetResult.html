@@ -16,6 +16,7 @@
 
         table {
             border-collapse: collapse;
+            background-color: white;
             width: 100%; /* Ширина таблицы в процентах */
         }
 
@@ -31,7 +32,6 @@
         }
 
         .field {
-            background-color: #E7ECFF;
             border: none;
             width: 100%;
         }
@@ -39,15 +39,15 @@
         tr.row:hover {background-color: black;}
 
     </style>
-    <script type="text/javascript" th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
 </head>
 <body >
 
 
-<form th:method="POST" th:action="@{/questionnaire/setResults}" th:object="${results}">
+<form id="tableDecoding" th:method="POST" th:action="@{/questionnaires/setResults}" th:object="${results}">
 
-    <div id="main-container" th:fragment="results-table">
-        <table border="1">
+    <div id="main-container">
+        <table border="1" >
             <caption style="padding-bottom: 5px; font-size: 22px"><b>Ключи</b></caption>
             <tr>
                 <th>Минимальное значение</th>
@@ -55,31 +55,32 @@
                 <th>Результат</th>
                 <th>Удалить</th>
             </tr>
-            <tbody th:each="result, i : *{results}"  th:each="result : ${results.getResults()}">
-                <tr class="row">
+            <tbody id="tableBody" hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML">
+                <tr class="row" th:each="result, i : ${results.decoding}" th:fragment="tableDecoding">
                     <td class="col">
-                        <input class="field" th:field="*{results[__${i.index}__].getMinScore()}"/>
+                        <input type="text" class="field" th:value="${result.lowerBound}" th:name="|decoding[${i.index+offset}].lowerBound|"/>
                     </td>
                     <td class="col">
-                        <input class="field" th:field="*{results[__${i.index}__].getMaxScore()}"/>
+                        <input type="text" class="field" th:value="${result.upperBound}" th:name="|decoding[${i.index+offset}].upperBound|"/>
                     </td>
                     <td class="col">
-                        <input class="field" th:field="*{results[__${i.index}__].getResult()}"/>
+                        <input type="text" class="field" th:value="${result.textResult}" th:name="|decoding[${i.index+offset}].textResult|"/>
                     </td>
                     <td class="col">
-                        <input class="field" style="cursor: pointer;" type="button" value="Удалить"
-                               hx-trigger="click"
-                               hx-delete="@{/questionnaire/setResults/addResult)"
-                               hx-target="#main-container">
+                        <button class="field" style="cursor: pointer;" th:attr="hx-delete=|@{/questionnaires/setResults/{resultId}(resultId=${result.id})}|">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             </tbody>
             <tr>
                 <td colspan="4" class="col">
-                    <input class="field" style="cursor: pointer;" type="button" value="Нажмите для добавления строки"
-                                                    hx-trigger="click"
-                                                    hx-post="@{/questionnaire/setResults/addResult)"
-                                                    hx-target="#main-container">
+                    <button class="field" style="cursor: pointer;" type="button"
+                           hx-trigger="click"
+                           th:attr="hx-get=|@{/questionnaires/setResults/{questionnaireId}/addResult(questionnaireId=${questionnaireId})}|"
+                            hx-swap="beforeend"
+                           hx-target="#tableBody"
+                            >Нажмите для добавления строки</button>
                 </td>
             </tr>
         </table>

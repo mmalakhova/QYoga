@@ -23,7 +23,7 @@ const renderCalendar = () => {
     liTag+= `<ul class="week" hx-trigger="click"
                               hx-get="@{/schedule/${currYear}/${currMonth}/${weekNum}"
                               hx-target="#schedule">`;
-    for (let i = firstDayofMonth; i > 0; i--) { // создание списка последних дней предыдущего месяца
+    for (let i = firstDayofMonth; i > 1; i--) { // создание списка последних дней предыдущего месяца
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
         index++;
     }

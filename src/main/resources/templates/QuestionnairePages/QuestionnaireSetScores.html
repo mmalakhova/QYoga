@@ -6,94 +6,80 @@
         @import url("/Style/CreateQuestionnaireStyle.css");
         @import url("/Style/NavigationPanel.css");
     </style>
-    <script type="text/javascript" th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<div id="questionnaire">
+<div class="question">
+    <div th:id="|question${question.id}Header|" th:fragment="questionHeader">
 
-    <div id="questions" th:each="question : ${questionnaire.getQuestions()}" th:fragment="questions">
+        <div class="question-header">
+            <input class="question-text" type="text" name="questionText" th:value="${question.text}">
+        </div>
 
-        <div th:id="|question${question.getId()}|" class="question" th:fragment="question">
+        <div th:id="|question${question.id}Img|" th:fragment="questionImg">
+            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
+            <!--<img th:src="${question.getImage()}" width="400">-->
+        </div>
+    </div>
+    <div th:each="answer,j : ${question.answers}" th:switch="${question.type.text}" th:fragment="answer">
 
-            <div th:id="|questionHeader${question.getId()}|" class="question-header" th:fragment="questionHeader">
-                <input class="question-text" type="text" name="questionText" th:text="${teacher.getText()}">
+        <div th:case="one" th:id="|answer${answer.id}|" class="answer" >
 
-                <div>
-                    <img class="addFileImg" src="https://cdn-icons-png.flaticon.com/512/84/84147.png">
-                    <input name="file" type="file" class="input_file" aria-hidden="true"
-                           hx-trigger="change"
-                           hx-get="@{/question/{questionId}/image(questionId=${question.getId()})"
-                           hx-target="'#answers' + ${question.getId()}"
-                           th:attr = "hx-target=|#questionHeader${question.getId()}|">
-                </div>
-
-                <select name="sort-type"
-                        hx-trigger="change, load"
-                        hx-get="@{/question/{questionId}/changeType(questionId=${question.getId()})}"
-                        th:attr = "hx-target=|#answers${question.getId()}|"
-                        class="sortBtn">
-                    <option value="" selected disabled hidden th:text="${question.getId()}">Choose here</option>
-                    <option value="one">one from list</option>
-                    <option value="several">several from list</option>
-                </select>
-                <!--<img th:src="${question.getImage()}" width="400">-->
+            <div class="question-header">
+                <img style="padding-right: 1%; height: 16px; width: 16px" src="/Img/circle.png" alt="answer type">
+                <label style="width: 90%;">
+                    <input class="answerText" type="text" name="answer" placeholder="answer" th:value="${answer.optionsText}"
+                           th:name="|questions[${questionNum}].answers[${j.index}].optionsText|">
+                </label>
+                <input style="width: 50px;height: 18px; margin-left: 20px" type="number" min="0" max="100" value="0" th:value="${answer.optionsScore}"
+                       th:name="|questions[${questionNum}].answers[${j.index}].optionsScore|"
+                       hx-trigger="keyup changed delay:200ms, search"
+                       th:attr = "hx-post=|@{/questionnaires/answers/{answerId}/setScore(answerId=${answer.id})}|">
             </div>
-
-            <div th:id="|answers${question.getId()}|" class="questionBody" th:each="answer,i : *{question.getAnswers()}" th:fragment="answer">
-                <div th:switch="${question.getType()}">
-
-                    <div th:case="one" class="answer">
-                        <div class="question-header">
-                            <img style="margin-right: 10px; height: 20px; width: 20px" src="/Img/circle.png" alt="answer type">
-                            <label style="width: 90%;">
-                                <input class="answerText" type="text" name="answer" placeholder="answer" th:text="&{answer.getText()}">
-                            </label>
-                            <input style="width: 50px;height: 18px; margin-left: 20px" type="number" min="0" max="100" value="0" th:value="${answer.getScore()}">
-                        </div>
-
-                        <div>
-                            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
                             <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->
-                        </div>
-                    </div>
+            <div th:id="|answer${answer.id}Img|" th:fragment="answerImg">
+                <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
+            </div>
+        </div>
 
-                    <div th:case="several" class="answer" >
-                        <div class="question-header">
-                            <img style="margin-right: 10px;" width="20px" src="/Img/square.png" alt="answer type">
-                            <label style="width: 90%;">
-                                <input class="answerText" type="text" name="answer" placeholder="answer" th:text="&{answer.getText()}">
-                            </label>
-                            <input style="width: 50px;height: 18px; margin-left: 20px" type="number" min="0" max="100" value="0" th:value="${answer.getScore()}">
-                        </div>
+        <div th:case="several" th:id="|answer${answer.id}|" class="answer" >
+            <div class="question-header">
+                <img style="padding-right: 1%; height: 16px; width: 16px" src="/Img/square.png" alt="answer type">
+                <label style="width: 90%;">
+                    <input class="answerText" type="text" name="answer" placeholder="answer" th:value="${answer.optionsText}"
+                           th:name="|questions[${questionNum}].answers[${j.index}].optionsText|">
+                </label>
+                <input style="width: 50px;height: 18px; margin-left: 20px" type="number" min="0" max="100" value="0" th:value="${answer.optionsScore}"
+                       th:name="|questions[${questionNum}].answers[${j.index}].optionsText|"
+                       hx-trigger="keyup changed delay:200ms, search"
+                       th:attr = "hx-post=|@{/questionnaires/answers/{answerId}/setScore(answerId=${answer.id})}|">
+            </div>
 
-                        <div>
-                            <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
                             <!--<img th:if="${question.getImage() != null}" class="questionImage" th.src="*{answer.getImage()}" alt="answer image">-->
-                        </div>
-                    </div>
-                </div>
+            <div th:id="|answer${answer.id}Img|" th:fragment="answerImg">
+                <img class="questionImage" src="https://notivory.com/upload/medialibrary/b16/b16d5342127a9811d38d97015f83c230.jpg" alt="answer image">
             </div>
-
-            <div style="border-top: 1px solid black; margin-top: 7px; padding: 7px">
-                <img class="delete-question" src="https://cdn.icon-icons.com/icons2/1524/PNG/512/trashcan_106521.png" alt="delete q btn"
-                     hx-trigger="click"
-                     hx-delete="@{/question/{questionId}(questionId=${question.getId()})"
-                     hx-target="questions">
-                <button type="button" class="navigation-btn" style="float: left"
-                        hx-trigger="click"
-                        hx-post="@{/question/{questionId}/set-scores(questionId=${question.getId()})"
-                        th:attr = "hx-target=|#answers${question.getId()}|"
-                >Сохранить</button>
-            </div>
-
         </div>
 
     </div>
-
+    <div style="border-top: 1px solid black; margin-top: 7px; padding: 7px">
+         <div>
+             <img class="delete-question" src="/Img/trashIcon.png" alt="delete q btn"
+                             hx-trigger="click"
+                             th:attr = "hx-delete=|@{/questionnaires/question/{questionId}(questionId=${question.getId()})}|"
+                             hx-target="#questions">
+         </div>
+         <div>
+             <button type="button" class="navigation-btn" style="float: left"
+                     hx-trigger="click"
+                     th:attr = "
+                        hx-get=|@{/questionnaires/question/{questionNum}/{questionId}/setAnswers
+                        (questionId=${question.getId()}, questionNum=${questionNum})}|,
+                        hx-target=|#question${question.id}|"
+             >Сохранить</button>
+         </div>
+    </div>
 </div>
 </body>
 </html>
-
-<!-- добавить ввод баллов-->
-<!-- не совсем доделано, в файле должен быть только вопрос, без других элементов, этот html код просто вставится-->

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - QuestionnaireListTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>QuestionnaireListTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/nsu.fit.qyoga.cases.core.questionnaires.external.html">nsu.fit.qyoga.cases.core.questionnaires.external</a> &gt; QuestionnaireListTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">5.267s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="QYoga should return html page on request questionnaires()"></a>
+<h3 class="failures">QYoga should return html page on request questionnaires()</h3>
+<span class="code">
+<pre>java.lang.AssertionError: 1 expectation failed.
+Response body doesn't match expectation.
+Expected: a string matching the pattern &lt;.+\..+\..+&gt;
+  Actual: &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+    &lt;title&gt;Questionnaires&lt;/title&gt;
+    &lt;link media=&quot;all&quot; rel=&quot;stylesheet&quot; href=&quot;/Style/QuestionnaireListStyle.css&quot; type=&quot;text/css&quot;/&gt;
+    &lt;link media=&quot;all&quot; rel=&quot;stylesheet&quot; href=&quot;/Style/NavigationPanel.css&quot; type=&quot;text/css&quot;/&gt;
+    &lt;script src=&quot;https://unpkg.com/htmx.org@1.8.5&quot; integrity=&quot;sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+    &lt;!--    &lt;style&gt;
+            @import url(&quot;/static/Style/QuestionnaireListStyle.css&quot;);
+            @import url(&quot;/static/Style/NavigationPanel.css&quot;);
+        &lt;/style&gt;--&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div style=&quot;margin-bottom: 70px&quot;&gt;
+        &lt;div class=&quot;header&quot;&gt;
+            &lt;p&gt;Опросы&lt;/p&gt;
+            &lt;div style=&quot;display: inline-block;&quot;&gt;
+                &lt;input type=&quot;search&quot; name=&quot;search-text&quot;
+                       placeholder=&quot;Begin Typing To Search Questionnaires...&quot;
+                       hx-trigger=&quot;keyup changed delay:500ms, search&quot;
+                       hx-get=&quot;/questionnaires/search&quot;
+                       hx-target=&quot;#questionnaire-list&quot;
+                       id=&quot;searchBar&quot;&gt;
+                &lt;select name=&quot;sort-type&quot;
+                        hx-trigger=&quot;change&quot;
+                        hx-get=&quot;/questionnaires/sort&quot;
+                        hx-target = &quot;#questionnaire-list&quot;
+                        id=&quot;sortBtn&quot;&gt;
+                    &lt;option value=&quot;up&quot;&gt;От А до Я&lt;/option&gt;
+                    &lt;option value=&quot;down&quot;&gt;От Я до А&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;questionnaire-list&quot;&gt;
+            
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;form action=&quot;/questionnaires/new&quot; method=&quot;GET&quot; class=&quot;navPanel&quot;&gt;
+        &lt;button type=&quot;submit&quot; class=&quot;navigation-btn&quot; &gt;Новый Опрос&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+
+
+&lt;/html&gt;
+
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+	at org.codehaus.groovy.reflection.CachedConstructor.doConstructorInvoke(CachedConstructor.java:60)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrap.callConstructor(ConstructorSite.java:86)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:58)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:46)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at io.restassured.internal.ResponseSpecificationImpl.forceValidateResponse(ResponseSpecificationImpl.groovy:682)
+	at io.restassured.module.kotlin.extensions.RestAssuredKotlinExtensionsKt$Then$2.invoke(RestAssuredKotlinExtensions.kt:61)
+	at io.restassured.module.kotlin.extensions.RestAssuredKotlinExtensionsKt$Then$2.invoke(RestAssuredKotlinExtensions.kt:60)
+	at io.restassured.module.kotlin.extensions.RestAssuredKotlinExtensionsKt$doIfValidatableResponseImpl$1.invoke(RestAssuredKotlinExtensions.kt:80)
+	at io.restassured.module.kotlin.extensions.RestAssuredKotlinExtensionsKt$doIfValidatableResponseImpl$1.invoke(RestAssuredKotlinExtensions.kt:78)
+	at io.restassured.module.kotlin.extensions.RestAssuredKotlinExtensionsKt.Then(RestAssuredKotlinExtensions.kt:60)
+	at nsu.fit.qyoga.cases.core.questionnaires.external.QuestionnaireListTest.QYoga should return html page on request questionnaires(QuestionnaireListTest.kt:15)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">QYoga should return html page on request questionnaires()</td>
+<td class="failures">5.267s</td>
+<td class="failures">failed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-02-14 11:08:43.257 [Test worker] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [nsu.fit.qyoga.infra.QYogaAppTestBase]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-02-14 11:08:43.641 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-02-14 11:08:43.676 [Test worker] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7aad3f7d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6f667ad1, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@566d0c69, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@388b401d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2bcec6a6, org.springframework.test.context.support.DirtiesContextTestExecutionListener@77a281fc, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4912d525, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2bfbffb2, org.springframework.test.context.event.EventPublishingTestExecutionListener@765df79d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@151335cb, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4a7761b1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@3e850122, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@27fde870, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@2b4c3c29, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5ac7aa18]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.4)
+
+2023-02-14 11:08:45.552 [Test worker] INFO  o.t.utility.ImageNameSubstitutor - Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2023-02-14 11:08:45.614 [Test worker] INFO  o.t.d.DockerClientProviderStrategy - Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2023-02-14 11:08:46.890 [Test worker] INFO  o.t.d.DockerClientProviderStrategy - Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+2023-02-14 11:08:46.895 [Test worker] INFO  o.testcontainers.DockerClientFactory - Docker host IP address is localhost
+2023-02-14 11:08:46.955 [Test worker] INFO  o.testcontainers.DockerClientFactory - Connected to docker: 
+  Server Version: 20.10.17
+  API Version: 1.41
+  Operating System: Docker Desktop
+  Total Memory: 17546 MB
+2023-02-14 11:08:47.019 [Test worker] INFO  docker[testcontainers/ryuk:0.3.4] - Creating container for image: testcontainers/ryuk:0.3.4
+2023-02-14 11:08:47.692 [Test worker] INFO  docker[testcontainers/ryuk:0.3.4] - Container testcontainers/ryuk:0.3.4 is starting: 032c246f08236ed72bf588f3958b3ca1541d53267b13554a23911a896c92e379
+2023-02-14 11:08:48.938 [Test worker] INFO  docker[testcontainers/ryuk:0.3.4] - Container testcontainers/ryuk:0.3.4 started in PT1.9605183S
+2023-02-14 11:08:48.955 [Test worker] INFO  o.t.utility.RyukResourceReaper - Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2023-02-14 11:08:48.956 [Test worker] INFO  o.testcontainers.DockerClientFactory - Checking the system...
+2023-02-14 11:08:48.958 [Test worker] INFO  o.testcontainers.DockerClientFactory - ?? Docker server version should be at least 1.6.0
+2023-02-14 11:08:48.960 [Test worker] INFO  docker[postgres:14.2] - Creating container for image: postgres:14.2
+2023-02-14 11:08:48.963 [Test worker] WARN  docker[postgres:14.2] - Reuse was requested but the environment does not support the reuse of containers
+To enable reuse of containers, you must set 'testcontainers.reuse.enable=true' in a file located at C:\Users\zerta\.testcontainers.properties
+2023-02-14 11:08:49.047 [Test worker] INFO  docker[postgres:14.2] - Container postgres:14.2 is starting: f99eaa8ab8e5e27d9188a7edfc492817b3edf68e2207181432694636e408672c
+2023-02-14 11:08:51.828 [Test worker] INFO  docker[postgres:14.2] - Container postgres:14.2 started in PT2.8688904S
+2023-02-14 11:08:51.846 [Test worker] INFO  n.f.q.c.c.q.e.QuestionnaireListTest - Starting QuestionnaireListTest using Java 17.0.3 on DESKTOP-RCJMLOA with PID 13716 (started by zerta in C:\Users\zerta\IdeaProjects\QYoga)
+2023-02-14 11:08:51.848 [Test worker] INFO  n.f.q.c.c.q.e.QuestionnaireListTest - No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-02-14 11:08:53.884 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-02-14 11:08:53.986 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 91 ms. Found 1 JDBC repository interfaces.
+2023-02-14 11:08:53.988 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-02-14 11:08:54.053 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 5 JDBC repository interfaces.
+2023-02-14 11:08:56.706 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 0 (http)
+2023-02-14 11:08:56.741 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler [&quot;http-nio-auto-1&quot;]
+2023-02-14 11:08:56.743 [Test worker] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-02-14 11:08:56.744 [Test worker] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.65]
+2023-02-14 11:08:57.123 [Test worker] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-02-14 11:08:57.125 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4586 ms
+2023-02-14 11:08:58.206 [Test worker] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 8.5.13 by Redgate
+2023-02-14 11:08:58.206 [Test worker] INFO  o.f.c.i.license.VersionPrinter - See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.13
+2023-02-14 11:08:58.206 [Test worker] INFO  o.f.c.i.license.VersionPrinter - 
+2023-02-14 11:08:58.231 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-14 11:08:58.708 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-14 11:08:58.778 [Test worker] INFO  o.f.c.i.d.base.BaseDatabaseType - Database: jdbc:postgresql://localhost:57955/qyoga (PostgreSQL 14.2)
+2023-02-14 11:08:58.948 [Test worker] INFO  o.f.core.internal.command.DbValidate - Successfully validated 1 migration (execution time 00:00.078s)
+2023-02-14 11:08:59.003 [Test worker] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table &quot;public&quot;.&quot;flyway_schema_history&quot; ...
+2023-02-14 11:08:59.090 [Test worker] INFO  o.f.core.internal.command.DbMigrate - Current version of schema &quot;public&quot;: &lt;&lt; Empty Schema &gt;&gt;
+2023-02-14 11:08:59.119 [Test worker] INFO  o.f.core.internal.command.DbMigrate - Migrating schema &quot;public&quot; to version &quot;22101801 - users&quot;
+2023-02-14 11:08:59.200 [Test worker] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 1 migration to schema &quot;public&quot;, now at version v22101801 (execution time 00:00.131s)
+2023-02-14 11:09:01.860 [Test worker] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2ac00dc9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@33293b34, org.springframework.security.web.context.SecurityContextPersistenceFilter@292b7a02, org.springframework.security.web.header.HeaderWriterFilter@7828bc6b, org.springframework.security.web.authentication.logout.LogoutFilter@73796ae5, org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter@68a1bb31, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@55b7f9f1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21d561c9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@344f4a82, org.springframework.security.web.session.SessionManagementFilter@1e60890c, org.springframework.security.web.access.ExceptionTranslationFilter@2f403d0a, org.springframework.security.web.access.intercept.AuthorizationFilter@1509bd56]
+2023-02-14 11:09:05.058 [Test worker] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler [&quot;http-nio-auto-1&quot;]
+2023-02-14 11:09:05.101 [Test worker] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 57966 (http) with context path ''
+2023-02-14 11:09:05.122 [Test worker] INFO  n.f.q.c.c.q.e.QuestionnaireListTest - Started QuestionnaireListTest in 20.508 seconds (JVM running for 35.161)
+2023-02-14 11:09:09.052 [http-nio-auto-1-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-14 11:09:09.052 [http-nio-auto-1-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-02-14 11:09:09.055 [http-nio-auto-1-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+Request method:	GET
+Request URI:	http://localhost:57966/questionnaires
+Proxy:			&lt;none&gt;
+Request params:	&lt;none&gt;
+Query params:	&lt;none&gt;
+Form params:	&lt;none&gt;
+Path params:	&lt;none&gt;
+Headers:		Accept=*/*
+				Content-Type=application/json
+Cookies:		&lt;none&gt;
+Multiparts:		&lt;none&gt;
+Body:
+{
+    &quot;username&quot;: &quot;admin&quot;,
+    &quot;password&quot;: &quot;diem-Synergy5&quot;
+}
+
+HTTP/1.1 200 
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: text/html;charset=UTF-8
+Content-Language: ru-RU
+Transfer-Encoding: chunked
+Date: Tue, 14 Feb 2023 04:09:09 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+&lt;html lang=&quot;ru&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+    &lt;title&gt;Questionnaires&lt;/title&gt;
+    &lt;link media=&quot;all&quot; rel=&quot;stylesheet&quot; href=&quot;/Style/QuestionnaireListStyle.css&quot; type=&quot;text/css&quot;/&gt;
+    &lt;link media=&quot;all&quot; rel=&quot;stylesheet&quot; href=&quot;/Style/NavigationPanel.css&quot; type=&quot;text/css&quot;/&gt;
+    &lt;script src=&quot;https://unpkg.com/htmx.org@1.8.5&quot; integrity=&quot;sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w&quot; crossorigin=&quot;anonymous&quot;/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div style=&quot;margin-bottom: 70px&quot;&gt;
+      &lt;div class=&quot;header&quot;&gt;
+        &lt;p&gt;Опросы&lt;/p&gt;
+        &lt;div style=&quot;display: inline-block;&quot;&gt;
+          &lt;input type=&quot;search&quot; id=&quot;searchBar&quot; name=&quot;search-text&quot; placeholder=&quot;Begin Typing To Search Questionnaires...&quot; hx-trigger=&quot;keyup changed delay:500ms, search&quot; hx-get=&quot;/questionnaires/search&quot; hx-target=&quot;#questionnaire-list&quot;/&gt;
+          &lt;select id=&quot;sortBtn&quot; name=&quot;sort-type&quot; hx-trigger=&quot;change&quot; hx-get=&quot;/questionnaires/sort&quot; hx-target=&quot;#questionnaire-list&quot;&gt;
+            &lt;option value=&quot;up&quot;&gt;От А до Я&lt;/option&gt;
+            &lt;option value=&quot;down&quot;&gt;От Я до А&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;questionnaire-list&quot;/&gt;
+    &lt;/div&gt;
+    &lt;form enctype=&quot;application/x-www-form-urlencoded&quot; method=&quot;GET&quot; class=&quot;navPanel&quot; action=&quot;/questionnaires/new&quot;&gt;
+      &lt;button type=&quot;submit&quot; class=&quot;navigation-btn&quot;&gt;Новый Опрос&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4</a> at 14 февр. 2023 г., 11:09:11</p>
+</div>
+</div>
+</body>
+</html>
