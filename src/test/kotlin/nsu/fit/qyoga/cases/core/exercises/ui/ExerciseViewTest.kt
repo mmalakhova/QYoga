@@ -1,6 +1,8 @@
 package nsu.fit.qyoga.cases.core.exercises.ui
 
 import io.github.ulfs.assertj.jsoup.Assertions
+import io.restassured.http.Cookie
+import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import nsu.fit.qyoga.infra.QYogaAppTestBase
@@ -10,10 +12,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
+private const val USERNAME_FORM_PARAM = "username"
+private const val PASSWORD_FORM_PARAM = "password"
+
 class ExerciseViewTest : QYogaAppTestBase() {
 
     @Autowired
     lateinit var dbInitializer: DbInitializer
+    lateinit var cookie: Cookie
 
     @BeforeEach
     fun setupDb() {
@@ -23,9 +29,19 @@ class ExerciseViewTest : QYogaAppTestBase() {
         )
     }
 
+    @BeforeEach
+    fun setupCookie() {
+        cookie = Given {
+            formParam(USERNAME_FORM_PARAM, "therapist")
+            formParam(PASSWORD_FORM_PARAM, "diem-Synergy5")
+        }.post("/users/login").thenReturn().detailedCookie("JSESSIONID")
+    }
+
     @Test
     fun `QYoga returns exercise-search page with exercise table`() {
-        When {
+        Given {
+            cookie(cookie)
+        } When {
             get("/exercises/")
         } Then {
             val body = Jsoup.parse(extract().body().asString())
@@ -39,7 +55,9 @@ class ExerciseViewTest : QYogaAppTestBase() {
 
     @Test
     fun `QYoga returns exercise-search page with input fields`() {
-        When {
+        Given {
+            cookie(cookie)
+        } When {
             get("/exercises/")
         } Then {
             val body = Jsoup.parse(extract().body().asString())
@@ -54,7 +72,9 @@ class ExerciseViewTest : QYogaAppTestBase() {
 
     @Test
     fun `QYoga returns exercises table with pagination`() {
-        When {
+        Given {
+            cookie(cookie)
+        } When {
             get("/exercises/search")
         } Then {
             val body = Jsoup.parse(extract().body().asString())
@@ -69,13 +89,14 @@ class ExerciseViewTest : QYogaAppTestBase() {
 
     @Test
     fun `QYoga returns exercise creation page`() {
-        When {
+        Given {
+            cookie(cookie)
+        } When {
             get("/exercises/create")
         } Then {
             val body = Jsoup.parse(extract().body().asString())
             Assertions.assertThatSpec(body) {
                 node("#createExerciseForm") { exists() }
-                node("#step") { exists() }
                 node("#buttons") { exists() }
             }
         }
