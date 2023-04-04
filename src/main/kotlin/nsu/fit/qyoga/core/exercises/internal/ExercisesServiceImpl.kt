@@ -62,16 +62,17 @@ class ExercisesServiceImpl(
         therapeuticPurposesRepo.save(newPurpose)
         createExerciseDto.exerciseSteps.map {
             var imageId: Long? = null
-            if (it.photo != null) {
-                imageId = imagesService.uploadImage(
-                    ImageDto(
-                        it.photo.name,
-                        it.photo.contentType ?: "application/octet-stream",
-                        it.photo.size,
-                        it.photo.inputStream
-                    )
-                )
-            }
+//            val photo = it.photo
+//            if (photo != null) {
+//                imageId = imagesService.uploadImage(
+//                    ImageDto(
+//                        photo.name,
+//                        photo.contentType ?: "application/octet-stream",
+//                        photo.size,
+//                        photo.inputStream
+//                    )
+//                )
+//            }
             exerciseStepsRepo.save(
                 ExerciseStep(
                     description = it.description,
@@ -87,6 +88,7 @@ class ExercisesServiceImpl(
         val exerciseToEdit =
             exercisesRepo.findByIdOrNull(exerciseDto.id) ?: throw ResourceNotFound("No existing exercise with this id")
 
+        return Exercise(9, "", ",", "", "", PGInterval(""), 1, 1L)
     }
 
     override fun getExerciseById(id: Long): ExerciseDto {

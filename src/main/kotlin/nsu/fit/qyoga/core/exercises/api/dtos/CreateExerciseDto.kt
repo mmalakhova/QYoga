@@ -1,6 +1,7 @@
 package nsu.fit.qyoga.core.exercises.api.dtos
 
 import nsu.fit.qyoga.core.exercises.api.model.ExerciseType
+import org.springframework.web.multipart.MultipartFile
 
 data class CreateExerciseDto(
     val title: String? = null,
@@ -10,5 +11,5 @@ data class CreateExerciseDto(
     val duration: String? = null,
     val exerciseType: ExerciseType? = null,
     val therapeuticPurpose: String? = null,
-    val exerciseSteps: List<ExerciseStepDto> = listOf()
+    val exerciseSteps: MutableList<ExerciseStepDto> = mutableListOf(),
 )

@@ -118,7 +118,7 @@ class ExerciseViewTest : QYogaAppTestBase() {
         Given {
             cookie(cookie)
         } When {
-//            param("createDto", createDto)
+            param("createDto", createDto)
             post("/exercises/")
         } Then {
             val body = Jsoup.parse(extract().body().asString())
