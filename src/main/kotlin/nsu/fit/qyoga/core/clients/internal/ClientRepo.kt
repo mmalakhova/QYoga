@@ -2,11 +2,14 @@ package nsu.fit.qyoga.core.clients.internal
 
 import nsu.fit.platform.lang.dataClassToMap
 import nsu.fit.platform.spring.queryForPage
+import nsu.fit.qyoga.core.clients.api.Client
 import nsu.fit.qyoga.core.clients.api.Dto.ClientDto
 import nsu.fit.qyoga.core.clients.api.Dto.ClientSearchDto
+import nsu.fit.qyoga.core.clients.api.Dto.NewClientDto
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.jdbc.core.DataClassRowMapper
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
 import org.springframework.stereotype.Repository
 
