@@ -8,7 +8,7 @@ import java.util.*
 @Table("clients")
 data class Client(
     @Id
-    val id: Long,
+    val id: Long = 0,
     val firstname: String,
     val patronymic: String,
     val lastname: String,
