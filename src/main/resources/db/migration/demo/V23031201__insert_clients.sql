@@ -1,7 +1,7 @@
-insert into clients (first_name, patronymic, last_name, birth_date, phone_number, diagnose, email, distribution_source)
-VALUES ('Иван', 'Иванович', 'Иванов', '1970.01.01', '+79231233445', 'Малярия', 'ivanoff@ya.ru', null),
-       ('Пётр', 'Петрович', 'Петров', '1978.01.01', '+79231233446', 'Корь', 'petrov@ya.ru', null),
-       ('Сергей', 'Иванович', 'Сергеев', '1990.01.01', '+79231233447', 'Краснуха', 'sergeev@ya.ru', null);
+insert into clients (first_name, patronymic, last_name, birth_date, phone_number, diagnose, email, distribution_source, address)
+VALUES ('Иван', 'Иванович', 'Иванов', '1970.01.01', '+79231233445', 'Малярия', 'ivanoff@ya.ru', null, 'Пирогова 20'),
+       ('Пётр', 'Петрович', 'Петров', '1978.01.01', '+79231233446', 'Корь', 'petrov@ya.ru', null, 'Пирогова 20'),
+       ('Сергей', 'Иванович', 'Сергеев', '1990.01.01', '+79231233447', 'Краснуха', 'sergeev@ya.ru', null, 'Пирогова 20');
 
 insert into appointments (datetime, complaints, photo, client_id, program_id, therapist_id, payed)
 VALUES ('2023-03-18 04:05:00', 'Болит пальчик', null, (select id from clients where email = 'ivanoff@ya.ru'),

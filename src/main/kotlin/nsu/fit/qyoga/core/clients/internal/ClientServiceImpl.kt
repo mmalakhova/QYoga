@@ -31,15 +31,15 @@ class ClientServiceImpl(
 
         return clientCrudRepo.save(
             Client(
-                firstname = newClientDto.firstName!!,
+                first_name = newClientDto.firstName!!,
                 patronymic = newClientDto.patronymic!!,
-                lastname = newClientDto.lastName!!,
-                birthdate = newClientDto.birthDate!!,
-                phoneNumber = newClientDto.phoneNumber!!,
+                last_name = newClientDto.lastName!!,
+                birth_date = newClientDto.birthDate!!,
+                phone_number = newClientDto.phoneNumber!!,
                 email = newClientDto.email!!,
                 address = newClientDto.address!!,
-                workingDiagnose = newClientDto.diagnose!!,
-                distributionSource = newClientDto.distribution!!
+                diagnose = newClientDto.diagnose!!,
+                distribution_source = newClientDto.distribution!!
             )
         )
     }
@@ -50,15 +50,15 @@ class ClientServiceImpl(
                 ?: throw ResourceNotFound("No existing exercise with id = ${newClientDto.id}")
 
         return targetClient.copy(
-            firstname = newClientDto.firstName!!,
+            first_name = newClientDto.firstName!!,
             patronymic = newClientDto.patronymic!!,
-            lastname = newClientDto.lastName!!,
-            birthdate = newClientDto.birthDate!!,
-            phoneNumber = newClientDto.phoneNumber!!,
+            last_name = newClientDto.lastName!!,
+            birth_date = newClientDto.birthDate!!,
+            phone_number = newClientDto.phoneNumber!!,
             email = newClientDto.email!!,
             address = newClientDto.address!!,
-            workingDiagnose = newClientDto.diagnose!!,
-            distributionSource = newClientDto.distribution!!
+            diagnose = newClientDto.diagnose!!,
+            distribution_source = newClientDto.distribution!!
         )
     }
 

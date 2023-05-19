@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <div th:replace="~{fragments/header::header (titleName=${'Список клиентов'})}"></div>
+    <div th:replace="~{fragments/header::header (titleName=${'Новый клиент'})}"></div>
 </head>
 
 <body class="sb-nav-fixed">
@@ -18,157 +18,122 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Новый клиент</h1>
 
-
                 <div class="card-body">
-                    <form hx-get="/clients/new-client" hx-target="#tablePagination"
-                          hx-trigger="submit"
+                    <form id="form" method="post"
+                          enctype="multipart/form-data"
+                          th:action="@{/clients}"
                           th:object="${searchDto}">
-                        <div class="input-group mb-3 m-auto" id="clientsDataForm">
-                            <div class="mt-3 mb-3 w-25" id="lastnameForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
+                        <div class="form-group col-md-6">
+                            <label for="lastnameForm">Фамилия</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text"
+                                       class="form-control" id="lastnameForm"
                                        placeholder="Фамилия"
                                        style="border-color:inherit"
-                                       th:field="${searchDto.lastName}"
-                                       type="text">
+                                       th:field="${createDto.lastName}">
                             </div>
+                        </div>
 
-                            <div class="mt-3 mb-3 w-25" id="firstnameForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
+                        <div class="form-group col-md-6">
+                            <label for="firstnameForm">Имя</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text"
+                                       class="form-control" id="firstnameForm"
                                        placeholder="Имя"
                                        style="border-color:inherit"
-                                       th:field="${searchDto.firstName}"
-                                       type="text">
+                                       th:field="${createDto.firstName}">
                             </div>
+                        </div>
 
-                            <div class="mt-3 mb-3 w-25" id="patronymicForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
+                        <div class="form-group col-md-6">
+                            <label for="patronymicForm">Отчество</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text"
+                                       class="form-control" id="patronymicForm"
                                        placeholder="Отчество"
                                        style="border-color:inherit"
-                                       th:field="${searchDto.patronymic}"
-                                       type="text">
-                            </div>
-
-                            <div class="mt-3 mb-3 w-25" id="phoneForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
-                                       placeholder="Номер телефона"
-                                       style="border-color:inherit"
-                                       th:field="${searchDto.phoneNumber}" type="text">
-                            </div>
-
-                            <div class="mt-3 mb-3 w-25" id="diagnoseForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
-                                       placeholder="Диагноз"
-                                       style="border-color:inherit"
-                                       th:field="${searchDto.diagnose}" type="text">
-                            </div>
-
-                            <div class="mt-3 mb-3 w-25" id="addressForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
-                                       placeholder="Адрес"
-                                       style="border-color:inherit"
-                                       th:field="${searchDto.appointmentDate}" type="text">
-                            </div>
-
-                            <div class="mt-3 mb-3 w-25" id="emailForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
-                                       placeholder="Электронная почта"
-                                       style="border-color:inherit"
-                                       th:field="${searchDto.appointmentDate}" type="text">
-                            </div>
-
-                            <div class="mt-3 mb-3 w-25" id="birthDateForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
-                                       placeholder="Дата рождения"
-                                       style="border-color:inherit"
-                                       th:field="${searchDto.appointmentDate}" type="date">
-                            </div>
-
-                            <div class="mt-3 mb-3 w-25" id="distributionSourceForm">
-                                <input aria-describedby="basic-addon2"
-                                       class="form-control"
-                                       placeholder="Откуда о нас узнали"
-                                       style="border-color:inherit"
-                                       th:field="${searchDto.appointmentDate}" type="text">
-                            </div>
-
-                            <div class="input-group mt-2 mb-5">
-                                <button class="btn btn-secondary" style="position: absolute" type="submit">Применить
-                                </button>
+                                       th:field="${createDto.patronymic}">
                             </div>
                         </div>
-                    </form>
-                    <form>
-                        <div class="form-group">
-                            <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress2">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control" id="inputAddress3" placeholder="1234 Main St">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress2">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress4" placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">City</label>
-                                <input type="text" class="form-control" id="inputCity">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="emailForm">Email</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="email" class="form-control"
+                                           id="emailForm" placeholder="Email"
+                                           style="border-color:inherit"
+                                           th:field="${createDto.email}">
+                                </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
+                                <label for="phoneNumberForm">Номер телефона</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control"
+                                           id="phoneNumberForm" placeholder="Номер телефона"
+                                           style="border-color:inherit"
+                                           th:field="${createDto.phoneNumber}">
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="distributionSourceForm">Откуда о нас узнали?</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control"
+                                           id="distributionSourceForm" placeholder="Как о нас узнали?"
+                                           style="border-color:inherit"
+                                           th:field="${createDto.distribution}">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="birthDateForm">Дата рождения</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="date" class="form-control"
+                                           id="birthDateForm" placeholder="Дата рождения"
+                                           style="border-color:inherit"
+                                           th:field="${createDto.birthDate}">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <div class="form-group col-md-6">
+                                <label for="addressForm">Адрес</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control"
+                                           id="addressForm" placeholder="Адрес"
+                                           style="border-color:inherit"
+                                           th:field="${createDto.address}">
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <div class="form-group col-md-6">
+                            <label for="diagnoseForm">Рабочий диагноз</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control"
+                                       id="diagnoseForm" placeholder="Диагноз"
+                                       style="border-color:inherit"
+                                       aria-label="With textarea"
+                                       th:field="${createDto.diagnose}">
+                            </div>
+                        </div>
+
+                        <div class="col-12 w-100 mb-3 mt-3" id="buttons">
+                            <button class="btn btn-secondary float-end " id="btnCreateClient" type="submit">
+                                Редактировать
+                                упражнение
+                            </button>
+                            <a href="/appointment/new-appointment">
+                                <button class="btn btn-secondary float-end" id="btnNewVisit" type="button">
+                                    Добавить прием
+                                </button>
+                            </a>
+                        </div>
+
                     </form>
                 </div>
 
 
-                <div class="input-group">
-                    <a href="/clients/new-client">
-                        <button class="btn btn-secondary" id="btnNewClient" type="button">
-                            Добавить клиента
-                        </button>
-                    </a>
-                </div>
+
             </div>
         </main>
         <footer class="py-4 bg-light mt-auto" th:insert="~{/fragments/footer.html :: footer}"></footer>

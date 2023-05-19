@@ -61,25 +61,24 @@ class ClientListPageController(
         model.addAttribute("createDto", NewClientDto())
         return CREATE_EDIT_PAGE
     }
-    @PostMapping("/new-client")
-    fun createExercise(
+    @PostMapping
+    fun createClient(
         @ModelAttribute("createDto") createDto: NewClientDto,
-        @ModelAttribute("searchDto") searchDto: ClientSearchDto,
         @PageableDefault(value = 10, page = 0) pageable: Pageable,
         model: Model
     ): String {
 
+        clientService.createClient(createDto)
         val clients = clientService.getClients(
-            searchDto,
+            ClientSearchDto(),
             pageable
         )
-        clientService.createClient(createDto)
-        model.addAllAttributes(toModelAttributes(clients, searchDto))
-        return CLIENT_PAGE
+        model.addAllAttributes(toModelAttributes(clients, ClientSearchDto()))
+        return "redirect:/clients"
     }
-    @PutMapping("/new-client")
-    fun editExercise(
-        @ModelAttribute("client") editDto: NewClientDto,
+    @PutMapping
+    fun editClient(
+        @ModelAttribute("clientDto") editDto: NewClientDto,
         @ModelAttribute("searchDto") searchDto: ClientSearchDto,
         @PageableDefault(value = 10, page = 0) pageable: Pageable,
         model: Model
@@ -90,7 +89,7 @@ class ClientListPageController(
         )
         clientService.editClient(editDto)
         model.addAllAttributes(toModelAttributes(clients, searchDto))
-        return CLIENT_PAGE
+        return "redirect:/clients"
     }
 
     fun toModelAttributes(clients: Page<ClientDto>, searchDto: ClientSearchDto): Map<String, *> = mapOf(

@@ -8,7 +8,8 @@ create table clients
     phone_number        varchar(18) not null unique,
     diagnose            varchar     not null,
     email               varchar unique,
-    distribution_source varchar
+    distribution_source varchar,
+    address             varchar     not null
 );
 
 create table appointments
